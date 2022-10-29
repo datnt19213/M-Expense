@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">MExpense</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="logo">Logo</string>
+    <string name="create_an_account"><u>Create an account?</u></string>
+    <string name="back_to_login"><u>Back to Login</u></string>
+    <string name="total_amount">Total Amount:</string>
+    <string name="valueTotalAmount">123456789</string>
+    <string name="Balance">Balance</string>
+    <string name="TotalExpense">Total Expense</string>
+    <string name="SearchTrip">Search trip</string>
+
+</resources>

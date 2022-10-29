@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/HomeMenuItem"
+        android:title="Home"
+        tools:ignore="HardcodedText"
+        android:icon="@drawable/home_icon"/>
+    <item android:id="@+id/TripMenuItem"
+        android:title="Trip"
+        tools:ignore="HardcodedText"
+        android:icon="@drawable/trip_icon"/>
+    <item android:id="@+id/SettingsMenuItem"
+        android:title="Settings"
+        tools:ignore="HardcodedText"
+        android:icon="@drawable/settings_icon"/>
+</menu>
