@@ -1,17 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingTop="9dp"
-    android:paddingBottom="9dp"
-    android:orientation="vertical"
-    android:layout_marginStart="9dp"
-    android:layout_marginEnd="9dp"
-    android:layout_marginBottom="9dp"
-    android:layout_marginTop="9dp"
-    android:background="@drawable/rounded">
-    <TextView
+    android:layout_height="90dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_margin="9dp"
+    android:padding="9dp"
+    android:background="@drawable/rounded"
+    android:id="@+id/expenseItem"
+    >
+    <androidx.cardview.widget.CardView
+        android:id="@+id/expenseImage"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:cardCornerRadius="60dp"
+        app:cardElevation="6dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginStart="6dp"
+        android:foregroundGravity="center"
+        >
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:contentDescription="Expense image"
+            android:scaleType="centerCrop"
+            android:src="@drawable/expense_image"
+            tools:ignore="HardcodedText,ImageContrastCheck" />
+    </androidx.cardview.widget.CardView>
+    <RelativeLayout
+        android:id="@+id/expenseTypeDate"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-</LinearLayout>
+        android:layout_height="match_parent"
+        android:layout_toEndOf="@+id/expenseImage"
+        android:layout_marginStart="15dp"
+        >
+
+        <TextView
+            android:id="@+id/expenseType"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/expense_type"
+            android:textColor="#EF6C00"
+            android:textFontWeight="700"
+            android:maxLength="18"
+            android:textSize="20sp"
+            tools:targetApi="p" />
+        <TextView
+            android:id="@+id/expenseDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/expense_date"
+            android:layout_below="@+id/expenseType"
+            android:layout_alignParentBottom="true"
+            android:fontFamily="sans-serif-medium"
+            android:textSize="15sp"
+            android:textColor="@color/blue"
+            android:gravity="bottom"
+            android:textFontWeight="430"
+            tools:targetApi="p" />
+    </RelativeLayout>
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        app:cardCornerRadius="9dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="6dp"
+        app:cardElevation="6dp"
+        android:layout_toEndOf="@+id/expenseTypeDate"
+        >
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:padding="9dp"
+            >
+
+            <TextView
+                android:id="@+id/expenseAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:text="@string/expenseAmount"
+                android:textColor="@color/green"
+                android:textFontWeight="430"
+                android:textSize="25sp"
+                tools:targetApi="p" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

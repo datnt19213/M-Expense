@@ -33,7 +33,7 @@
             android:gravity="center"
             android:textAlignment="center"
             android:fontFamily="sans-serif-medium"
-            android:text="@string/valueTotalAmount"
+            android:text="123456789"
             android:textColor="@color/white"
             android:textSize="30sp"
             tools:ignore="RtlHardcoded" />
@@ -56,7 +56,7 @@
             android:layout_height="match_parent"
             android:fontFamily="sans-serif-medium"
             android:gravity="center"
-            android:text="@string/Balance"
+            android:text="@string/balance"
             android:textColor="@color/white"
             android:textSize="20sp" />
 
@@ -64,10 +64,10 @@
             android:id="@+id/balance"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textAlignment="center"
-            android:gravity="center"
             android:fontFamily="sans-serif-medium"
+            android:gravity="center"
             android:text="123456789"
+            android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="30sp"
             tools:ignore="RtlHardcoded" />
@@ -106,4 +106,19 @@
             android:textSize="30sp"
             tools:ignore="RtlHardcoded" />
     </LinearLayout>
+    <Button
+        android:id="@+id/btnGoTripManagement"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btnGoToTip"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="60dp"
+        android:fontFamily="sans-serif-medium"
+        android:textSize="20sp"
+        android:padding="13dp"
+        android:background="@drawable/btn_rounded_full_fill"
+        android:textAllCaps="false"
+        android:layout_alignParentBottom="true"
+        />
 </RelativeLayout>

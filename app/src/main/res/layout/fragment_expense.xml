@@ -1,14 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".mainfragments.ExpenseFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.cardview.widget.CardView
+        android:id="@+id/expenseOverviewCard"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="180dp"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="16sp"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <androidx.cardview.widget.CardView
+                android:id="@+id/expenseOverviewImage"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                app:cardCornerRadius="115dp"
+                app:cardElevation="9dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                >
 
-</FrameLayout>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="expenseOverviewCard"
+                    android:src="@drawable/expense_image"
+                    tools:ignore="HardcodedText,ImageContrastCheck" />
+            </androidx.cardview.widget.CardView>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toEndOf="@+id/expenseOverviewImage"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="30dp"
+                >
+                <LinearLayout
+                    android:id="@+id/totalExpenseInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:orientation="vertical"
+                    android:layout_marginTop="18dp"
+
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/TotalExpense"
+                        android:fontFamily="sans-serif-medium"
+                        android:textSize="15sp"
+                        android:textFontWeight="430"
+                        tools:targetApi="p" />
+                    <TextView
+                        android:id="@+id/expenseOverviewValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/totalExpense"
+                        android:fontFamily="sans-serif-medium"
+                        android:textSize="20sp"
+                        android:layout_marginTop="9dp"
+                        android:textFontWeight="500"
+                        tools:targetApi="p" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="18dp"
+                    android:layout_alignParentBottom="true"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/total_amount"
+                        android:fontFamily="sans-serif-medium"
+                        android:textSize="15sp"
+                        android:textFontWeight="430"
+                        tools:targetApi="p" />
+                    <TextView
+                        android:id="@+id/amountOverviewValue"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/totalAmount"
+                        android:fontFamily="sans-serif-medium"
+                        android:textSize="20sp"
+                        android:layout_marginTop="9dp"
+                        android:textFontWeight="500"
+                        tools:targetApi="p"
+                        />
+                </LinearLayout>
+            </RelativeLayout>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleViewExpense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="90dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:layout_below="@+id/expenseOverviewCard"
+        android:layout_alignParentBottom="true"
+        tools:listitem="@layout/item_expense"
+        />
+
+</RelativeLayout>

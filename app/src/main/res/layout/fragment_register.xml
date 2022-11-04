@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="93dp"
         android:src="@drawable/m_expense"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="30dp"
         android:layout_marginBottom="30dp"
         tools:ignore="ContentDescription" />
 
@@ -22,7 +22,7 @@
         android:layout_below="@+id/logo"
         android:layout_alignParentBottom="true"
         android:layout_gravity="center"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="30dp"
         android:orientation="vertical"
         android:paddingStart="30dp"
         android:paddingEnd="30dp"

@@ -11,11 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mexpense.R;
 import com.example.mexpense.model.Trips;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder> {
 
-    private List<Trips> mListTrips;
+    private final List<Trips> mListTrips;
 
     //Create TrippAdapter using listTrip data
     public TripAdapter(List<Trips> mListTrips) {
@@ -51,9 +52,11 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
 
 
     //view holder of Trip
-    public class TripViewHolder extends RecyclerView.ViewHolder{
+    public static class TripViewHolder extends RecyclerView.ViewHolder{
 
-        private TextView tripName, tripDate, tripDestination;
+        private final TextView tripName;
+        private final TextView tripDate;
+        private final TextView tripDestination;
 
         public TripViewHolder(@NonNull View itemView) {
             super(itemView);

@@ -70,9 +70,7 @@ public class Trips implements Serializable {
         this.mTripRiskAssessment = mTripRiskAssessment;
     }
 
-    public String getmTripDescription() {
-        return mTripDescription;
-    }
+    public String getmTripDescription() { return mTripDescription; }
 
     public void setmTripDescription(String mTripDescription) {
         this.mTripDescription = mTripDescription;

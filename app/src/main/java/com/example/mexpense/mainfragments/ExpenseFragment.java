@@ -14,6 +14,7 @@ import com.example.mexpense.R;
 
 public class ExpenseFragment extends Fragment {
 
+    View view;
 
     public ExpenseFragment(){
         //Empty Constructor
@@ -30,6 +31,7 @@ public class ExpenseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_expense, container, false);
+        view = inflater.inflate(R.layout.fragment_expense, container, false);
+        return view;
     }
 }
