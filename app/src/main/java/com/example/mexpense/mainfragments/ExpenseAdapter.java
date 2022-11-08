@@ -38,7 +38,7 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ExpenseV
 
         holder.expenseType.setText(expenses.getmExpenseType());
         holder.expenseDate.setText(expenses.getmExDate());
-        holder.expenseAmount.setText((int)expenses.getmExAmount());
+        holder.expenseAmount.setText(expenses.getmExAmount());
     }
 
     @Override

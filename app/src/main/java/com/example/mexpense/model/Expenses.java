@@ -3,26 +3,30 @@ package com.example.mexpense.model;
 public class Expenses {
     private int mExId;
     private String mExpenseType;
-    private long mExAmount;
+    private int mExAmount;
     private String mExDate;
     private String mExComment;
 
-    //Constructor not has id
-    public Expenses(long mExAmount, String mExDate, String mExComment, String mExpenseType) {
-        this.mExpenseType = mExpenseType;
-        this.mExAmount = mExAmount;
-        this.mExDate = mExDate;
-        this.mExComment = mExComment;
-    }
+    private int mExTripId;
 
-    //Constructor has id
-    public Expenses(int mExId, long mExAmount, String mExDate, String mExComment, String mExpenseType) {
-        this.mExId = mExId;
-        this.mExpenseType = mExpenseType;
-        this.mExAmount = mExAmount;
-        this.mExDate = mExDate;
-        this.mExComment = mExComment;
-    }
+//    //Constructor not has id
+//    public Expenses(int mExAmount, String mExDate, String mExComment, String mExpenseType, int mExTripId) {
+//        this.mExpenseType = mExpenseType;
+//        this.mExAmount = mExAmount;
+//        this.mExDate = mExDate;
+//        this.mExComment = mExComment;
+//        this.mExTripId = mExTripId;
+//    }
+//
+//    //Constructor has id
+//    public Expenses(int mExId, int mExAmount, String mExDate, String mExComment, String mExpenseType, int mExTripId) {
+//        this.mExId = mExId;
+//        this.mExpenseType = mExpenseType;
+//        this.mExAmount = mExAmount;
+//        this.mExDate = mExDate;
+//        this.mExComment = mExComment;
+//        this.mExTripId = mExTripId;
+//    }
 
     public int getmExId() {
         return mExId;
@@ -40,11 +44,11 @@ public class Expenses {
         this.mExpenseType = mExpenseType;
     }
 
-    public long getmExAmount() {
+    public int getmExAmount() {
         return mExAmount;
     }
 
-    public void setmExAmount(long mExAmount) {
+    public void setmExAmount(int mExAmount) {
         this.mExAmount = mExAmount;
     }
 
@@ -62,5 +66,13 @@ public class Expenses {
 
     public void setmExComment(String mExComment) {
         this.mExComment = mExComment;
+    }
+
+    public int getmExTripId() {
+        return mExTripId;
+    }
+
+    public void setmExTripId(int mExTripId) {
+        this.mExTripId = mExTripId;
     }
 }

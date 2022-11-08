@@ -7,27 +7,27 @@ public class Trips implements Serializable {
     private String mTripName;
     private String mTripDestination;
     private String mTripDate;
-    private Boolean mTripRiskAssessment;
+    private String mTripRiskAssessment;
     private String mTripDescription;
 
     //Constructor has id
-    public Trips() {
-        this.mId = mId;
-        this.mTripName = mTripName;
-        this.mTripDestination = mTripDestination;
-        this.mTripDate = mTripDate;
-        this.mTripRiskAssessment = mTripRiskAssessment;
-        this.mTripDescription = mTripDescription;
-    }
-
-    //Constructor not has id
-    public Trips(String mTripName, String mTripDestination, String mTripDate, Boolean mTripRiskAssessment, String mTripDescription) {
-        this.mTripName = mTripName;
-        this.mTripDestination = mTripDestination;
-        this.mTripDate = mTripDate;
-        this.mTripRiskAssessment = mTripRiskAssessment;
-        this.mTripDescription = mTripDescription;
-    }
+//    public Trips(int mId, String mTripName, String mTripDestination, String mTripDate, String mTripRiskAssessment, String mTripDescription) {
+//        this.mId = mId;
+//        this.mTripName = mTripName;
+//        this.mTripDestination = mTripDestination;
+//        this.mTripDate = mTripDate;
+//        this.mTripRiskAssessment = mTripRiskAssessment;
+//        this.mTripDescription = mTripDescription;
+//    }
+//
+//    //Constructor not has id
+//    public Trips(String mTripName, String mTripDestination, String mTripDate, String mTripRiskAssessment, String mTripDescription) {
+//        this.mTripName = mTripName;
+//        this.mTripDestination = mTripDestination;
+//        this.mTripDate = mTripDate;
+//        this.mTripRiskAssessment = mTripRiskAssessment;
+//        this.mTripDescription = mTripDescription;
+//    }
 
     //Getter and Setter
     public int getmId() {
@@ -62,11 +62,11 @@ public class Trips implements Serializable {
         this.mTripDate = mTripDate;
     }
 
-    public Boolean getmTripRiskAssessment() {
+    public String getmTripRiskAssessment() {
         return mTripRiskAssessment;
     }
 
-    public void setmTripRiskAssessment(Boolean mTripRiskAssessment) {
+    public void setmTripRiskAssessment(String mTripRiskAssessment) {
         this.mTripRiskAssessment = mTripRiskAssessment;
     }
 
