@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -78,9 +77,6 @@ public class AddTripFragment extends Fragment {
         btnAddTrip = mAddTrip.findViewById(R.id.addTripBtn);
 
         btnAddTrip.setOnClickListener(v -> {
-//            radioGroup = radioGroup.findViewById(R.id.radioGroupRiskCheck);
-//            idChecked = radioGroup.getCheckedRadioButtonId();
-//            radioButton = radioButton.findViewById(idChecked);
             Trips trip = new Trips();
             trip.setmTripName(tripName_input.getText().toString());
             trip.setmTripDestination(tripDestination_input.getText().toString());
@@ -91,10 +87,8 @@ public class AddTripFragment extends Fragment {
 
             if (result == -1) {
                 AlertDialogFailed();
-//                  Toast.makeText(AddTripFragment.this.getActivity(), "Failed", Toast.LENGTH_SHORT).show();
             } else {
                 AlertDialogSuccess();
-//                  Toast.makeText(AddTripFragment.this.getActivity(),  "Added Successfully!", Toast.LENGTH_SHORT).show();
             }
 
             addTripFormTransaction();
@@ -110,7 +104,7 @@ public class AddTripFragment extends Fragment {
     public void AlertDialogFailed(){
         alertDialog = new AlertDialog.Builder(getActivity());
         alertDialog.setMessage("Add Failed");
-        alertDialog.setNegativeButton(R.string.cancel_delete_trip, (dialogInterface, i) -> dialogInterface.dismiss());
+        alertDialog.setNegativeButton(R.string.OK, (dialogInterface, i) -> dialogInterface.dismiss());
         dialog = alertDialog.create();
         alertDialog.show();
         //Dialog alert failed to add trip
@@ -119,7 +113,7 @@ public class AddTripFragment extends Fragment {
     public void AlertDialogSuccess(){
         alertDialog = new AlertDialog.Builder(getActivity());
         alertDialog.setMessage("Add Successfully");
-        alertDialog.setNegativeButton(R.string.cancel_delete_trip, (dialogInterface, i) -> dialogInterface.dismiss());
+        alertDialog.setNegativeButton(R.string.OK, (dialogInterface, i) -> dialogInterface.dismiss());
         dialog = alertDialog.create();
         alertDialog.show();
         //Dialog alert success to add trip

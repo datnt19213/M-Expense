@@ -26,6 +26,12 @@
     <string name="expenseAmount">100000$</string>
     <string name="totalExpense">123456789</string>
     <string name="totalAmount">123456789</string>
+    <string name="OK">OK</string>
+    <string name="totalTrip">Total Trip</string>
+    <string name="type_of_expense">Expense Type</string>
+    <string name="date_of_expense">Expense Date</string>
+    <string name="description_of_expense">Expense Description</string>
+    <string name="trip_amount">Trip Amount</string>
 
 
 </resources>

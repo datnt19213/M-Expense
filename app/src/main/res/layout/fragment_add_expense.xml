@@ -5,10 +5,111 @@
     android:layout_height="match_parent"
     tools:context=".mainfragments.AddExpenseFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <RelativeLayout
+        android:id="@+id/addExpenseForm"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello" />
+        android:orientation="vertical"
+        tools:ignore="UselessParent">
+        <TextView
+            android:id="@+id/titleAddExpense"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:gravity="center"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="Add Expense"
+            android:textColor="@color/orange"
+            android:textSize="50sp"
+            tools:ignore="HardcodedText" />
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:layout_below="@+id/titleAddExpense">
+
+            <EditText
+                android:id="@+id/expenseType_input"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:hint="@string/type_of_expense"
+                android:background="@drawable/rounded"
+                tools:ignore="RtlSymmetry"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:autofillHints=""
+                android:textSize="18sp"
+                android:fontFamily="sans-serif-medium"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/expenseAmount_input"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_below="@+id/expenseType_input"
+                android:hint="@string/trip_amount"
+                android:background="@drawable/rounded"
+                android:layout_marginTop="25dp"
+                android:inputType="number"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:textSize="18sp"
+                android:fontFamily="sans-serif-medium"
+                android:autofillHints="" />
+
+            <EditText
+                android:id="@+id/expenseDate_input"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_below="@+id/expenseAmount_input"
+                android:hint="@string/date_of_expense"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/rounded"
+                android:inputType="datetime"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:textSize="18sp"
+                android:fontFamily="sans-serif-medium"
+                android:autofillHints="" />
+
+            <EditText
+                android:id="@+id/expenseDescription_input"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/rounded"
+                android:layout_below="@+id/expenseDate_input"
+                android:hint="@string/description_of_expense"
+                android:inputType="textMultiLine"
+                android:maxLines="6"
+                android:maxLength="150"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:textSize="18sp"
+                android:fontFamily="sans-serif-medium"
+                android:autofillHints="" />
+
+            <Button
+                android:id="@+id/addTripBtn"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="25dp"
+                android:layout_below="@+id/expenseDescription_input"
+                android:text="Add new expense"
+                android:background="@drawable/btn_rounded_full_fill"
+                android:textSize="24sp"
+                android:textAllCaps="false"
+                tools:ignore="HardcodedText" />
+
+        </RelativeLayout>
+    </RelativeLayout>
 </FrameLayout>

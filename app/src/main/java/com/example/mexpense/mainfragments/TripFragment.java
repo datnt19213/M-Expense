@@ -2,7 +2,6 @@ package com.example.mexpense.mainfragments;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
@@ -11,7 +10,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
@@ -24,11 +22,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mexpense.R;
 import com.example.mexpense.data.DBManager;
-import com.example.mexpense.model.Trips;
+import com.example.mexpense.databinding.FragmentTripBinding;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class TripFragment extends Fragment {
@@ -37,6 +32,7 @@ public class TripFragment extends Fragment {
 
     RecyclerView recyclerViewTrip;
     TripAdapter tripAdapter;
+    FragmentTripBinding fragmentTripBinding;
 
     FragmentTransaction transaction;
     FrameLayout frameMainContainer;
@@ -46,9 +42,7 @@ public class TripFragment extends Fragment {
 
     MaterialAlertDialogBuilder alertDialog;
 
-    private List<Trips> mListTrips;
     int id;
-    Context context;
 
     public TripFragment(){
         //Empty constructor
@@ -90,20 +84,23 @@ public class TripFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_trip, container, false);
+        fragmentTripBinding = FragmentTripBinding.inflate(inflater, container, false);
 
-        recyclerViewTrip = view.findViewById(R.id.recycleViewTrip);
-        tripAdapter = new TripAdapter(mListTrips);
+        view = fragmentTripBinding.getRoot();
 
-        linearLayoutManager = new LinearLayoutManager(context, RecyclerView.VERTICAL, false);
+        recyclerViewTrip = fragmentTripBinding.recycleViewTrip;
+        linearLayoutManager = new LinearLayoutManager(view.getContext());
+
         recyclerViewTrip.setLayoutManager(linearLayoutManager);
 
-//        tripAdapter.onBindViewHolder(this , mListTrips.size());
+        DBManager dbManager = new DBManager(getActivity());
+
+        tripAdapter = new TripAdapter(dbManager.getAllTrip());
+        recyclerViewTrip.setAdapter(tripAdapter);
 
 
 //        updateTripFormTransaction();
 //        deleteTripClick();
-
         return view;
     }
 
@@ -111,13 +108,6 @@ public class TripFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
-
-    //    public List<Trips> getListOfTrips(){
-//        List<Trips> triplist = new ArrayList<>();
-//        triplist.add(new Trips());
-//
-//        return triplist;
-//    }
 
     //add trip form transaction
     public void addTripFormTransaction(){
@@ -154,30 +144,40 @@ public class TripFragment extends Fragment {
 //        });
 //    }
 //
-//    //delete a trip from the Trip list in this fragment
-//    public void deleteTripClick(){
-//        deleteTripBtn = view.findViewById(R.id.deleteTripBtn);
-//        deleteTripBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                alertDialog = new MaterialAlertDialogBuilder(getActivity(), R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog);
-//                alertDialog.setMessage("Are you sure you want to delete all trips?");
-//                alertDialog.setPositiveButton(R.string.delete_trip, new DialogInterface.OnClickListener() {
-//
-//                            @Override
-//                            public void onClick(DialogInterface dialogInterface, int i) {
-//                                //dialogInterface.dismiss();
-//
-//                                //Delete all trip in database here
-//                            }
-//                        })
-//                        .setNegativeButton(R.string.cancel_delete_trip, (dialogInterface, i) -> dialogInterface.dismiss());
-//                alertDialog.create();
-//                alertDialog.show();
-//                //Dialog alert delete all trip
-//            }
-//        });
-//    }
+    //delete a trip from the Trip list in this fragment
+    public void deleteTripClick(){
+        deleteTripBtn = view.findViewById(R.id.deleteTripBtn);
+        deleteTripBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog = new MaterialAlertDialogBuilder(getActivity(), R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog);
+                alertDialog.setMessage("Are you sure you want to delete all trips?");
+                alertDialog.setPositiveButton(R.string.delete_trip, new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                DBManager db = new  DBManager(getActivity());
+
+                                assert getFragmentManager() != null;
+                                transaction = getFragmentManager().beginTransaction();
+                                transaction.setCustomAnimations(
+                                        R.anim.slide_in,  // enter
+                                        R.anim.fade_out,  // exit
+                                        R.anim.fade_in,   // popEnter
+                                        R.anim.slide_out  // popExit
+                                );
+                                transaction.replace(R.id.frameMainContainer, TripFragment.class, null);
+                                transaction.commit();
+                                //Delete a trip in database here
+                            }
+                        })
+                        .setNegativeButton(R.string.cancel_delete_trip, (dialogInterface, i) -> dialogInterface.dismiss());
+                alertDialog.create();
+                alertDialog.show();
+                //Dialog alert delete all trip
+            }
+        });
+    }
 
     //delete all trip click listener
     public void deleteAllTripClick(){
@@ -189,6 +189,17 @@ public class TripFragment extends Fragment {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         DBManager db = new  DBManager(getActivity());
                         db.deleteAllTrip();
+
+                        assert getFragmentManager() != null;
+                        transaction = getFragmentManager().beginTransaction();
+                        transaction.setCustomAnimations(
+                                R.anim.slide_in,  // enter
+                                R.anim.fade_out,  // exit
+                                R.anim.fade_in,   // popEnter
+                                R.anim.slide_out  // popExit
+                        );
+                        transaction.replace(R.id.frameMainContainer, TripFragment.class, null);
+                        transaction.commit();
                     }
                 })
                 .setNegativeButton(R.string.cancel_delete_trip, (dialogInterface, i) -> dialogInterface.dismiss());

@@ -9,6 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mexpense.R;
+import com.example.mexpense.databinding.FragmentExpenseBinding;
+import com.example.mexpense.databinding.ItemExpenseBinding;
 import com.example.mexpense.model.Expenses;
 
 import java.util.List;
@@ -23,9 +25,10 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ExpenseV
 
     @NonNull
     @Override
-    public ExpenseAdapter.ExpenseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_expense, parent, false);
-        return new ExpenseViewHolder(view);
+    public ExpenseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        ItemExpenseBinding itemExpenseBinding = ItemExpenseBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+
+        return new ExpenseViewHolder(itemExpenseBinding);
     }
 
     @Override
@@ -36,9 +39,9 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ExpenseV
             return;
         }
 
-        holder.expenseType.setText(expenses.getmExpenseType());
-        holder.expenseDate.setText(expenses.getmExDate());
-        holder.expenseAmount.setText(expenses.getmExAmount());
+        holder.itemExpenseBinding.expenseType.setText(expenses.getmExpenseType());
+        holder.itemExpenseBinding.expenseDate.setText(expenses.getmExDate());
+        holder.itemExpenseBinding.expenseAmount.setText(expenses.getmExAmount());
     }
 
     @Override
@@ -50,16 +53,11 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ExpenseV
     }
 
     public static class ExpenseViewHolder extends RecyclerView.ViewHolder {
-        private final TextView expenseType;
-        private final TextView expenseDate;
-        private final TextView expenseAmount;
+        ItemExpenseBinding itemExpenseBinding;
 
-        public ExpenseViewHolder(@NonNull View itemView) {
-            super(itemView);
-
-            expenseType = itemView.findViewById(R.id.expenseType);
-            expenseDate = itemView.findViewById(R.id.expenseDate);
-            expenseAmount = itemView.findViewById(R.id.expenseAmount);
+        public ExpenseViewHolder(@NonNull ItemExpenseBinding itemExpenseBinding) {
+            super(itemExpenseBinding.getRoot());
+            this.itemExpenseBinding = itemExpenseBinding;
         }
     }
 }
