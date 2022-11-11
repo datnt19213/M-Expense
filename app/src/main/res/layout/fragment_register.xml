@@ -22,7 +22,7 @@
         android:layout_below="@+id/logo"
         android:layout_alignParentBottom="true"
         android:layout_gravity="center"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="0dp"
         android:orientation="vertical"
         android:paddingStart="30dp"
         android:paddingEnd="30dp"
@@ -68,10 +68,9 @@
             android:id="@+id/repassRegisInput"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_marginTop="15dp"
             android:layout_marginBottom="30dp"
             android:background="@drawable/rounded"
-            android:hint="Password"
+            android:hint="Confirm Password"
             android:inputType="textPassword"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
@@ -79,18 +78,20 @@
 
         <Button
             android:id="@+id/btnRegister"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="0dp"
             android:layout_marginBottom="30dp"
             android:backgroundTint="@color/orange"
             android:fontFamily="sans-serif-medium"
+            android:textSize="18sp"
             android:paddingLeft="60dp"
             android:paddingTop="15dp"
             android:paddingRight="60dp"
             android:paddingBottom="15dp"
             android:text="Register"
+            android:textAllCaps="false"
             tools:ignore="HardcodedText" />
 
         <TextView
@@ -100,7 +101,7 @@
             android:fontFamily="sans-serif-medium"
             android:gravity="left"
             android:text="@string/back_to_login"
-            android:textSize="12sp"
+            android:textSize="15sp"
             tools:ignore="RtlHardcoded" />
     </LinearLayout>
 

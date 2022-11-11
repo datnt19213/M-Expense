@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".settings.FeedbackFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="UselessParent">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/feedbackForm"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:layout_margin="30dp"
+            app:cardElevation="8dp"
+            app:cardCornerRadius="8dp"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <EditText
+                    android:id="@+id/emailFeedback"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:autofillHints=""
+                    android:background="@drawable/rounded"
+                    android:hint="Email"
+                    android:inputType="textEmailAddress"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    tools:ignore="HardcodedText,DuplicateSpeakableTextCheck" />
+
+                <EditText
+                    android:id="@+id/feedbackInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/emailFeedback"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:autofillHints="15"
+                    android:background="@drawable/rounded"
+                    android:hint="Description"
+                    android:inputType="textMultiLine"
+                    android:lines="15"
+                    android:maxLines="15"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    tools:ignore="HardcodedText" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:layout_below="@+id/feedbackForm"
+            >
+            <Button
+                android:id="@+id/backFeedbackToSettings"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:textSize="18sp"
+                android:textAllCaps="false"
+                android:text="Back to Settings"
+                tools:ignore="ButtonStyle,HardcodedText" />
+            <Button
+                android:id="@+id/sendFeedback"
+                android:layout_width="120dp"
+                android:layout_height="60dp"
+                android:textSize="18sp"
+                android:layout_marginStart="30dp"
+                android:textAllCaps="false"
+                android:text="Send"
+                tools:ignore="ButtonStyle,HardcodedText" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</FrameLayout>

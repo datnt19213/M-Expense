@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="93dp"
         android:src="@drawable/m_expense"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="50dp"
         android:layout_marginBottom="30dp"
         tools:ignore="ContentDescription" />
 
@@ -22,7 +22,7 @@
         android:layout_below="@+id/logoLogin"
         android:layout_alignParentBottom="true"
         android:layout_gravity="center"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="50dp"
         android:orientation="vertical"
         android:paddingStart="30dp"
         android:paddingEnd="30dp"
@@ -67,7 +67,7 @@
         <Button
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="30dp"
@@ -75,7 +75,7 @@
             android:fontFamily="sans-serif-medium"
             android:paddingLeft="60dp"
             android:paddingRight="60dp"
-            android:textSize="24sp"
+            android:textSize="18sp"
             android:textAllCaps="false"
             android:text="Login"
             android:background="@drawable/btn_rounded_full_fill"
@@ -88,7 +88,7 @@
             android:fontFamily="sans-serif-medium"
             android:gravity="right"
             android:text="@string/create_an_account"
-            android:textSize="12sp"
+            android:textSize="15sp"
             tools:ignore="RtlHardcoded" />
     </LinearLayout>
 </RelativeLayout>

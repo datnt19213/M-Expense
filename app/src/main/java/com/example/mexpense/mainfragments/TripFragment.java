@@ -1,6 +1,5 @@
 package com.example.mexpense.mainfragments;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.transition.TransitionInflater;
@@ -144,40 +143,40 @@ public class TripFragment extends Fragment {
 //        });
 //    }
 //
-    //delete a trip from the Trip list in this fragment
-    public void deleteTripClick(){
-        deleteTripBtn = view.findViewById(R.id.deleteTripBtn);
-        deleteTripBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                alertDialog = new MaterialAlertDialogBuilder(getActivity(), R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog);
-                alertDialog.setMessage("Are you sure you want to delete all trips?");
-                alertDialog.setPositiveButton(R.string.delete_trip, new DialogInterface.OnClickListener() {
-
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                DBManager db = new  DBManager(getActivity());
-
-                                assert getFragmentManager() != null;
-                                transaction = getFragmentManager().beginTransaction();
-                                transaction.setCustomAnimations(
-                                        R.anim.slide_in,  // enter
-                                        R.anim.fade_out,  // exit
-                                        R.anim.fade_in,   // popEnter
-                                        R.anim.slide_out  // popExit
-                                );
-                                transaction.replace(R.id.frameMainContainer, TripFragment.class, null);
-                                transaction.commit();
-                                //Delete a trip in database here
-                            }
-                        })
-                        .setNegativeButton(R.string.cancel_delete_trip, (dialogInterface, i) -> dialogInterface.dismiss());
-                alertDialog.create();
-                alertDialog.show();
-                //Dialog alert delete all trip
-            }
-        });
-    }
+//    //delete a trip from the Trip list in this fragment
+//    public void deleteTripClick(){
+//        deleteTripBtn = view.findViewById(R.id.deleteTripBtn);
+//        deleteTripBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                alertDialog = new MaterialAlertDialogBuilder(getActivity(), R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog);
+//                alertDialog.setMessage("Are you sure you want to delete all trips?");
+//                alertDialog.setPositiveButton(R.string.delete_trip, new DialogInterface.OnClickListener() {
+//
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//                                DBManager db = new  DBManager(getActivity());
+//
+//                                assert getFragmentManager() != null;
+//                                transaction = getFragmentManager().beginTransaction();
+//                                transaction.setCustomAnimations(
+//                                        R.anim.slide_in,  // enter
+//                                        R.anim.fade_out,  // exit
+//                                        R.anim.fade_in,   // popEnter
+//                                        R.anim.slide_out  // popExit
+//                                );
+//                                transaction.replace(R.id.frameMainContainer, TripFragment.class, null);
+//                                transaction.commit();
+//                                //Delete a trip in database here
+//                            }
+//                        })
+//                        .setNegativeButton(R.string.cancel_delete_trip, (dialogInterface, i) -> dialogInterface.dismiss());
+//                alertDialog.create();
+//                alertDialog.show();
+//                //Dialog alert delete all trip
+//            }
+//        });
+//    }
 
     //delete all trip click listener
     public void deleteAllTripClick(){

@@ -3,11 +3,168 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".mainfragments.SettingsFragment">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/green"/>
+        android:orientation="vertical"
+        tools:ignore="UselessParent">
+        <TextView
+            android:id="@+id/settingsTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Settings"
+            android:gravity="center"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            android:textColor="@color/orange"
+            android:textSize="50sp"
+            tools:ignore="HardcodedText" />
+        <androidx.cardview.widget.CardView
+            android:id="@+id/accountSettings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/settingsTitle"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            app:cardElevation="8sp"
+            app:cardCornerRadius="8dp"
+            >
+            <TextView
+                android:id="@+id/accountSettingsBtn"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="Account"
+                android:textSize="20sp"
+                android:gravity="center_vertical"
+                android:textColor="@color/orange"
+                android:padding="15dp"
+                tools:ignore="HardcodedText" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/notificationSettings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/accountSettings"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            app:cardElevation="8dp"
+            app:cardCornerRadius="8dp"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                >
+
+                <TextView
+                    android:id="@+id/notificationSettingsTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="30dp"
+                    android:text="@string/notification_settings"
+                    android:textColor="@color/orange"
+                    android:textSize="20sp"
+                    tools:ignore="HardcodedText" />
+
+                <Switch
+                    android:id="@+id/notificationsSwitch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/notificationSettingsTitle"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginBottom="30dp"
+                    android:text="Application Notifications"
+                    android:textColor="@color/orange"
+                    android:textSize="20sp"
+                    android:checked="true"
+                    tools:ignore="HardcodedText,UseSwitchCompatOrMaterialXml" />
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/feedbackSettings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/notificationSettings"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            app:cardElevation="8sp"
+            app:cardCornerRadius="8dp"
+            >
+            <TextView
+                android:id="@+id/feedbackSettingsBtn"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="Feedback"
+                android:textSize="20sp"
+                android:gravity="center_vertical"
+                android:textColor="@color/orange"
+                android:padding="15dp"
+                tools:ignore="HardcodedText" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/aboutSettings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/feedbackSettings"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            app:cardElevation="8sp"
+            app:cardCornerRadius="8dp"
+            >
+            <TextView
+                android:id="@+id/aboutSettingsBtn"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="About"
+                android:textSize="20sp"
+                android:gravity="center_vertical"
+                android:textColor="@color/orange"
+                android:padding="15dp"
+                tools:ignore="HardcodedText" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/logoutSettings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/aboutSettings"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            app:cardElevation="8sp"
+            app:cardCornerRadius="8dp"
+            >
+            <TextView
+                android:id="@+id/logoutSettingsBtn"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="Logout"
+                android:textSize="20sp"
+                android:gravity="center_vertical"
+                android:textColor="@color/orange"
+                android:padding="15dp"
+                tools:ignore="HardcodedText" />
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
 
 </FrameLayout>
