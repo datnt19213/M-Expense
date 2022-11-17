@@ -3,44 +3,29 @@ package com.example.mexpense;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.animation.AnimationUtils;
-import android.view.animation.LayoutAnimationController;
-import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.fragment.app.FragmentTransaction;
 
-import com.example.mexpense.accessfragments.LoginFragment;
-import com.example.mexpense.accessfragments.RegisterFragment;
+import com.example.mexpense.mainfragments.AddExpenseFragment;
+import com.example.mexpense.mainfragments.ExpenseFragment;
 import com.example.mexpense.mainfragments.SettingsFragment;
 import com.example.mexpense.mainfragments.TotalFragment;
-import com.example.mexpense.mainfragments.TripAdapter;
 import com.example.mexpense.mainfragments.TripFragment;
+import com.example.mexpense.mainfragments.UpdateTripFragment;
 import com.example.mexpense.model.Trips;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class MainActivity extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener {
-
-    LoginFragment loginFragment;
-    RegisterFragment registerFragment;
-    TripAdapter tripAdapter;
+public class MainActivity extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, ExpenseFragment.ISendData, AddExpenseFragment.IReloadData {
 
     FrameLayout frameMainContainer;
     BottomNavigationView bottomNavigationView;
 
-    RecyclerView recyclerViewTrip;
     FragmentManager fragmentManager;
-
-    LayoutAnimationController layoutAnimationController;
-
-
 
     @SuppressLint({"NonConstantResourceId", "MissingInflatedId"})
     @Override
@@ -48,9 +33,6 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
 //        Objects.requireNonNull(getSupportActionBar()).hide();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        loginFragment = new LoginFragment();
-        registerFragment = new RegisterFragment();
 
         frameMainContainer = findViewById(R.id.frameMainContainer);
 
@@ -66,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
         });
     }
 
+    //bottom menu navigation choice transaction
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -99,20 +82,54 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
         return false;
     }
 
-//    private void setAnimation (int animResource){
-//        recyclerViewTrip = findViewById(R.id.recycleViewTrip);
-//        tripAdapter = new TripAdapter(getListOfTrips());
-//        layoutAnimationController = AnimationUtils.loadLayoutAnimation(this, animResource);
-//        recyclerViewTrip.setLayoutAnimation(layoutAnimationController);
-//
-//        recyclerViewTrip.setAdapter(tripAdapter);
-//    }
-//
-//    private List<Trips> getListOfTrips(){
-//        List<Trips> list = new ArrayList<>();
-//        list.add(new Trips("1", "2", "3", true, "5"));
-//        list.add(new Trips("1", "2", "3", true, "5"));
-//        list.add(new Trips("1", "2", "3", true, "5"));
-//        return list;
-//    }
+    //get id from trip item to expense list in expense fragment
+    public void goExpenseFragment(Trips trip){
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        ExpenseFragment expenseFragment = new ExpenseFragment();
+        AddExpenseFragment addExpenseFragment = new AddExpenseFragment();
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("object_trip", trip);
+
+        expenseFragment.setArguments(bundle);
+        addExpenseFragment.setArguments(bundle);
+
+        transaction.replace(R.id.frameMainContainer, expenseFragment);
+        transaction.commit();
+    }
+
+    //get trip data to update trip
+    public void updateTripItem(Trips trip){
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        UpdateTripFragment updateTripFragment = new UpdateTripFragment();
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("object_update_trip", trip);
+
+        updateTripFragment.setArguments(bundle);
+
+        transaction.replace(R.id.frameMainContainer, updateTripFragment);
+        transaction.addToBackStack(UpdateTripFragment.TAG); //Save position of trip recycle view
+        transaction.commit();
+    }
+
+    //get id from expense added to show list expense in expense fragment
+    @Override
+    public void reloadData(int tripId) {
+        ExpenseFragment expenseFragment = new ExpenseFragment();
+        expenseFragment.receiveExpenseTripId(tripId);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frameMainContainer, expenseFragment);
+        transaction.commit();
+    }
+
+    //get id from expense fragment to send to add expense
+    @Override
+    public void sendData(int tripId) {
+        AddExpenseFragment addExpenseFragment = new AddExpenseFragment();
+        addExpenseFragment.onReceiveData(tripId);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frameMainContainer, addExpenseFragment);
+        transaction.commit();
+    }
 }

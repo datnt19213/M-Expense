@@ -7,13 +7,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".mainfragments.ExpenseFragment">
 
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/expenseSearchBox"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/rounded"
+        android:fontFamily="sans-serif-medium"
+        android:inputType="text"
+        android:paddingLeft="13dp"
+        android:paddingRight="13dp"
+        android:textColorHint="#EF6C00"
+        android:textSize="19sp"
+        app:dividerPadding="10dp"
+        app:iconifiedByDefault="false"
+        app:queryHint="@string/SearchExpense"
+        tools:ignore="HardcodedText" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/expenseOverviewCard"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="150dp"
+        android:layout_below="@+id/expenseSearchBox"
         app:cardCornerRadius="30dp"
-        app:cardElevation="16sp"
-        android:layout_marginTop="30dp"
+        app:cardElevation="8sp"
+        android:layout_marginTop="15dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         >
@@ -51,16 +72,28 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:gravity="center_vertical"
-                    >
+                    tools:ignore="UselessParent">
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/total_amount"
                         android:fontFamily="sans-serif-medium"
                         android:textSize="20sp"
+                        android:layout_marginEnd="30dp"
                         android:textColor="@color/orange"
                         android:textFontWeight="430"
                         tools:targetApi="p" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/expenseTripName"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="@string/total_amount"-->
+<!--                        android:fontFamily="sans-serif-medium"-->
+<!--                        android:textSize="20sp"-->
+<!--                        android:layout_marginEnd="30dp"-->
+<!--                        android:textColor="@color/orange"-->
+<!--                        android:textFontWeight="430"-->
+<!--                        tools:targetApi="p" />-->
                     <TextView
                         android:id="@+id/amountOverviewValue"
                         android:layout_width="match_parent"
@@ -68,6 +101,7 @@
                         android:text="@string/totalAmount"
                         android:fontFamily="sans-serif-medium"
                         android:textSize="25sp"
+                        android:layout_marginEnd="30dp"
                         android:textColor="@color/orange"
                         android:layout_marginTop="9dp"
                         android:textFontWeight="800"
@@ -80,14 +114,24 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycleViewExpense"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="90dp"
+        android:layout_height="330dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="5dp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:layout_below="@+id/expenseOverviewCard"
-        android:layout_alignParentBottom="true"
         tools:listitem="@layout/item_expense"
         />
+    <Button
+        android:id="@+id/expenseBackToTrip"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Back"
+        android:textSize="18sp"
+        android:layout_below="@+id/recycleViewExpense"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:textAllCaps="false"
+        tools:ignore="HardcodedText" />
 
 </RelativeLayout>

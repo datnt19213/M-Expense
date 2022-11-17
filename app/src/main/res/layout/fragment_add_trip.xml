@@ -131,17 +131,34 @@
                 android:fontFamily="sans-serif-medium"
                 android:autofillHints="" />
 
-            <Button
-                android:id="@+id/addTripBtn"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="25dp"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/tripDescription_input"
-                android:text="Add new trip"
-                android:background="@drawable/btn_rounded_full_fill"
-                android:textSize="24sp"
-                android:textAllCaps="false"
-                tools:ignore="HardcodedText" />
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/addTripBackBtn"
+                    android:layout_width="130dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="25dp"
+                    android:text="Back"
+                    android:background="@drawable/btn_rounded_full_fill"
+                    android:textSize="24sp"
+                    android:textAllCaps="false"
+                    tools:ignore="HardcodedText" />
+                <Button
+                    android:id="@+id/addTripBtn"
+                    android:layout_width="200dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="25dp"
+                    android:text="Add trip"
+                    android:background="@drawable/btn_rounded_full_fill"
+                    android:textSize="24sp"
+                    android:textAllCaps="false"
+                    tools:ignore="HardcodedText" />
+            </LinearLayout>
 
         </RelativeLayout>
     </RelativeLayout>

@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.mexpense.R;
-import com.example.mexpense.accessfragments.LoginFragment;
 import com.example.mexpense.settings.AboutFragment;
 import com.example.mexpense.settings.AccountFragment;
 import com.example.mexpense.settings.FeedbackFragment;
@@ -39,7 +38,6 @@ public class SettingsFragment extends Fragment {
         AccountSettingsTransaction();
         FeedbackSettingsTransaction();
         AboutSettingsTransaction();
-        LogoutSettingsTransaction();
 
         return view;
     }
@@ -98,25 +96,6 @@ public class SettingsFragment extends Fragment {
                         R.anim.slide_out  // popExit
                 );
                 transaction.replace(R.id.frameMainContainer, AboutFragment.class, null);
-                transaction.commit();
-            }
-        });
-    }
-
-    public void LogoutSettingsTransaction(){
-        logoutBtn = view.findViewById(R.id.logoutSettingsBtn);
-        logoutBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                assert getFragmentManager() != null;
-                transaction = getFragmentManager().beginTransaction();
-                transaction.setCustomAnimations(
-                        R.anim.slide_in,  // enter
-                        R.anim.fade_out,  // exit
-                        R.anim.fade_in,   // popEnter
-                        R.anim.slide_out  // popExit
-                );
-                transaction.replace(R.id.frameMainContainer, LoginFragment.class, null);
                 transaction.commit();
             }
         });

@@ -9,7 +9,7 @@
     <string name="delete_all_trip"><u>Delete all</u></string>
     <string name="total_amount">Total Amount:</string>
     <string name="Balance">Balance</string>
-    <string name="TotalExpense">Total Expense:</string>
+    <string name="TotalExpense">Total Expenses:</string>
     <string name="SearchTrip">Search trip</string>
     <string name="balance">Balance:</string>
     <string name="btnGoToTip">Go to Trip Management</string>
@@ -37,6 +37,8 @@
     <string name="notification_settings">Notifications</string>
     <string name="password_txt">123456789</string>
     <string name="username_txt">123456789</string>
+    <string name="SearchExpense">Search Expense</string>
+    <string name="total_trip">Total Trips:</string>
 
 
 </resources>

@@ -16,7 +16,7 @@ import java.util.List;
 public class DBManager extends SQLiteOpenHelper {
     private static Context context;
     private static final String DATABASE_NAME = "MExpense.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 8;
 
     private static final String TABLE_TRIP_NAME = "trips";
     private static final String COLUMN_TRIPID = "tripId";
@@ -32,6 +32,7 @@ public class DBManager extends SQLiteOpenHelper {
     private static final String COLUMN_AMOUNT = "expenseAmount";
     private static final String COLUM_DATEofEXPENSE = "expenseDate";
     private static final String COLUMN_COMMENT = "expenseComment";
+    private static final String COLUMN_EXPENSETRIPID = "tripId";
 
 
     public DBManager(@Nullable Context context) {
@@ -56,7 +57,7 @@ public class DBManager extends SQLiteOpenHelper {
                 COLUMN_AMOUNT + " INTEGER, " +
                 COLUM_DATEofEXPENSE + " TEXT, " +
                 COLUMN_COMMENT + " TEXT, " +
-                COLUMN_TRIPID + " INTEGER, " + " FOREIGN KEY (" + COLUMN_TRIPID + ") REFERENCES " + TABLE_TRIP_NAME + "(" + COLUMN_TRIPID + "));";
+                COLUMN_EXPENSETRIPID + " INTEGER, " + " FOREIGN KEY (" + COLUMN_EXPENSETRIPID + ") REFERENCES " + TABLE_TRIP_NAME + "(" + COLUMN_TRIPID + "));";
 
         sqliteDb.execSQL(expenseQuery);
     }
@@ -104,7 +105,7 @@ public class DBManager extends SQLiteOpenHelper {
         values.put(COLUM_DATEofEXPENSE, expense.getmExDate());
         values.put(COLUMN_AMOUNT, expense.getmExAmount());
         values.put(COLUMN_COMMENT, expense.getmExComment());
-        values.put(COLUMN_TRIPID, expense.getmExTripId());
+        values.put(COLUMN_EXPENSETRIPID, expense.getmExTripId());
 
         // Inserting Row
         insertId = db.insert(TABLE_EXPENSE_NAME, null, values);
@@ -138,13 +139,40 @@ public class DBManager extends SQLiteOpenHelper {
         return list;
     }
 
-    public List<Expenses> getAllExpense() {
-        final String query = "SELECT * FROM " + TABLE_EXPENSE_NAME;
+    public List<Trips> getTripByExpense(int tripId) {
+        final String query = "SELECT * FROM " + TABLE_TRIP_NAME + " WHERE " + COLUMN_TRIPID + " = ?";
         SQLiteDatabase db = this.getReadableDatabase();
+        final List<Trips> list = new ArrayList<>();
+        final Cursor cursor;
+        if (db != null) {
+            cursor = db.rawQuery(query, new String[]{String.valueOf(tripId)});
+            if (cursor.moveToFirst()) {
+                do {
+                    Trips trip = new Trips();
+                    trip.setmId(cursor.getInt(0));
+                    trip.setmTripName(cursor.getString(1));
+                    trip.setmTripDate(cursor.getString(2));
+                    trip.setmTripDestination(cursor.getString(3));
+                    trip.setmTripRiskAssessment(cursor.getString(4));
+                    trip.setmTripDescription(cursor.getString(5));
+                    // Adding object to list
+                    list.add(trip);
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+            db.close();
+        }
+        return list;
+    }
+
+    //get all expense by trip id
+    public List<Expenses> getAllExpense(int tripId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        final String query = "SELECT * FROM "+ TABLE_EXPENSE_NAME +" WHERE " + COLUMN_EXPENSETRIPID + " = ?";
         final List<Expenses> list = new ArrayList<>();
         final Cursor cursor;
         if (db != null) {
-            cursor = db.rawQuery(query, null);
+            cursor = db.rawQuery(query, new String[]{String.valueOf(tripId)});
             if (cursor.moveToFirst()) {
                 do {
                     Expenses expense = new Expenses();
@@ -154,6 +182,7 @@ public class DBManager extends SQLiteOpenHelper {
                     expense.setmExDate(cursor.getString(3));
                     expense.setmExComment(cursor.getString(4));
                     expense.setmExTripId(Integer.parseInt(cursor.getString(5)));
+
                     // Adding object to list
                     list.add(expense);
                 } while (cursor.moveToNext());

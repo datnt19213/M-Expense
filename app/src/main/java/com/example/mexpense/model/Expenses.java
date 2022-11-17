@@ -1,33 +1,16 @@
 package com.example.mexpense.model;
 
-public class Expenses {
+import java.io.Serializable;
+
+public class Expenses implements Serializable {
     private int mExId;
     private String mExpenseType;
     private int mExAmount;
     private String mExDate;
     private String mExComment;
-
     private int mExTripId;
 
-//    //Constructor not has id
-//    public Expenses(int mExAmount, String mExDate, String mExComment, String mExpenseType, int mExTripId) {
-//        this.mExpenseType = mExpenseType;
-//        this.mExAmount = mExAmount;
-//        this.mExDate = mExDate;
-//        this.mExComment = mExComment;
-//        this.mExTripId = mExTripId;
-//    }
-//
-//    //Constructor has id
-//    public Expenses(int mExId, int mExAmount, String mExDate, String mExComment, String mExpenseType, int mExTripId) {
-//        this.mExId = mExId;
-//        this.mExpenseType = mExpenseType;
-//        this.mExAmount = mExAmount;
-//        this.mExDate = mExDate;
-//        this.mExComment = mExComment;
-//        this.mExTripId = mExTripId;
-//    }
-
+    //getter setter expense
     public int getmExId() {
         return mExId;
     }

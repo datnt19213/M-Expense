@@ -10,25 +10,6 @@ public class Trips implements Serializable {
     private String mTripRiskAssessment;
     private String mTripDescription;
 
-    //Constructor has id
-//    public Trips(int mId, String mTripName, String mTripDestination, String mTripDate, String mTripRiskAssessment, String mTripDescription) {
-//        this.mId = mId;
-//        this.mTripName = mTripName;
-//        this.mTripDestination = mTripDestination;
-//        this.mTripDate = mTripDate;
-//        this.mTripRiskAssessment = mTripRiskAssessment;
-//        this.mTripDescription = mTripDescription;
-//    }
-//
-//    //Constructor not has id
-//    public Trips(String mTripName, String mTripDestination, String mTripDate, String mTripRiskAssessment, String mTripDescription) {
-//        this.mTripName = mTripName;
-//        this.mTripDestination = mTripDestination;
-//        this.mTripDate = mTripDate;
-//        this.mTripRiskAssessment = mTripRiskAssessment;
-//        this.mTripDescription = mTripDescription;
-//    }
-
     //Getter and Setter
     public int getmId() {
         return mId;

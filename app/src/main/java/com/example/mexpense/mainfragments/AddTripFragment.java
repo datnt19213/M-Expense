@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -19,19 +20,20 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.mexpense.R;
 import com.example.mexpense.data.DBManager;
 import com.example.mexpense.model.Trips;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class AddTripFragment extends Fragment {
     EditText tripName_input, tripDestination_input, tripDate_input, tripDescription_input;
-    Button btnAddTrip;
+    Button btnAddTrip, btnAddTripBack;
+    TextView totalTrip, totalAmount, totalExpense;
     RadioGroup radioGroup;
     RadioButton radioButtonRisk, radioButtonNoneRisk;
 
     FragmentTransaction transaction;
-
-    AlertDialog.Builder alertDialog;
-    AlertDialog dialog;
-
     View mAddTrip;
+
+    MaterialAlertDialogBuilder alertDialog;
+    AlertDialog dialog;
 
     int selected;
 
@@ -51,7 +53,6 @@ public class AddTripFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         mAddTrip = inflater.inflate(R.layout.fragment_add_trip, container, false);
-
 
         DBManager myDB = new DBManager(getActivity());
 
@@ -75,51 +76,73 @@ public class AddTripFragment extends Fragment {
         });
 
         btnAddTrip = mAddTrip.findViewById(R.id.addTripBtn);
+        btnAddTripBack = mAddTrip.findViewById(R.id.addTripBackBtn);
 
         btnAddTrip.setOnClickListener(v -> {
-            Trips trip = new Trips();
-            trip.setmTripName(tripName_input.getText().toString());
-            trip.setmTripDestination(tripDestination_input.getText().toString());
-            trip.setmTripDate(tripDate_input.getText().toString());
-            trip.setmTripRiskAssessment(String.valueOf(selected));
-            trip.setmTripDescription(tripDescription_input.getText().toString());
-            long result = myDB.addTrip(trip);
 
-            if (result == -1) {
-                AlertDialogFailed();
-            } else {
-                AlertDialogSuccess();
+            if (tripName_input.getText().toString().isEmpty()
+            || tripDestination_input.getText().toString().isEmpty()
+            || tripDate_input.getText().toString().isEmpty()
+            || tripDescription_input.getText().toString().isEmpty()){
+                AlertDialogEmpty();
+            }else {
+                Trips trip = new Trips();
+                trip.setmTripName(tripName_input.getText().toString());
+                trip.setmTripDestination(tripDestination_input.getText().toString());
+                trip.setmTripDate(tripDate_input.getText().toString());
+                trip.setmTripRiskAssessment(String.valueOf(selected));
+                trip.setmTripDescription(tripDescription_input.getText().toString());
+                long result = myDB.addTrip(trip);
+
+                if (result == -1) {
+                    AlertDialogFailed();
+                } else {
+                    AlertDialogSuccess();
+                    tripTransaction();
+                }
+
             }
-
-            addTripFormTransaction();
         });
 
-
+        btnAddTripBack.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                tripTransaction();
+            }
+        });
 
         // Inflate the layout for this fragment
         return mAddTrip;
-//                return inflater.inflate(R.layout.fragment_add_trip, container, false);
     }
 
     public void AlertDialogFailed(){
-        alertDialog = new AlertDialog.Builder(getActivity());
+        alertDialog = new MaterialAlertDialogBuilder(getActivity(), R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog);
         alertDialog.setMessage("Add Failed");
         alertDialog.setNegativeButton(R.string.OK, (dialogInterface, i) -> dialogInterface.dismiss());
-        dialog = alertDialog.create();
+        alertDialog.create();
         alertDialog.show();
         //Dialog alert failed to add trip
     }
 
     public void AlertDialogSuccess(){
-        alertDialog = new AlertDialog.Builder(getActivity());
+        alertDialog = new MaterialAlertDialogBuilder(getActivity(), R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog);
         alertDialog.setMessage("Add Successfully");
         alertDialog.setNegativeButton(R.string.OK, (dialogInterface, i) -> dialogInterface.dismiss());
-        dialog = alertDialog.create();
+        alertDialog.create();
         alertDialog.show();
         //Dialog alert success to add trip
     }
 
-    public void addTripFormTransaction(){
+    public void AlertDialogEmpty(){
+        alertDialog = new MaterialAlertDialogBuilder(getActivity(), R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog);
+        alertDialog.setMessage("Fields must not be empty");
+        alertDialog.setNegativeButton(R.string.OK, (dialogInterface, i) -> dialogInterface.dismiss());
+        alertDialog.create();
+        alertDialog.show();
+        //Dialog alert empty fields data
+    }
+
+    public void tripTransaction(){
         assert getFragmentManager() != null;
         transaction = getFragmentManager().beginTransaction();
         transaction.setCustomAnimations(

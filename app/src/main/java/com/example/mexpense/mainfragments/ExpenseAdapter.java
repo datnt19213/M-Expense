@@ -1,34 +1,37 @@
 package com.example.mexpense.mainfragments;
 
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mexpense.R;
-import com.example.mexpense.databinding.FragmentExpenseBinding;
-import com.example.mexpense.databinding.ItemExpenseBinding;
 import com.example.mexpense.model.Expenses;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ExpenseViewHolder>{
+public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ExpenseViewHolder> implements Filterable {
 
-    private final List<Expenses> mListExpenses;
+    private List<Expenses> mListExpenses; //new list to show search data result
+    private final List<Expenses> mListExpensesOld; //current list
 
     public ExpenseAdapter(List<Expenses> mListExpenses) {
         this.mListExpenses = mListExpenses;
+        this.mListExpensesOld = mListExpenses;
     }
 
     @NonNull
     @Override
     public ExpenseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ItemExpenseBinding itemExpenseBinding = ItemExpenseBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
-
-        return new ExpenseViewHolder(itemExpenseBinding);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_expense, parent, false);
+        return new ExpenseViewHolder(view);
     }
 
     @Override
@@ -38,10 +41,9 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ExpenseV
         if (expenses == null){
             return;
         }
-
-        holder.itemExpenseBinding.expenseType.setText(expenses.getmExpenseType());
-        holder.itemExpenseBinding.expenseDate.setText(expenses.getmExDate());
-        holder.itemExpenseBinding.expenseAmount.setText(expenses.getmExAmount());
+        holder.expenseType.setText(expenses.getmExpenseType());
+        holder.expenseDate.setText(expenses.getmExDate());
+        holder.expenseAmount.setText(String.valueOf(expenses.getmExAmount()));
     }
 
     @Override
@@ -53,11 +55,53 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ExpenseV
     }
 
     public static class ExpenseViewHolder extends RecyclerView.ViewHolder {
-        ItemExpenseBinding itemExpenseBinding;
+        TextView expenseType, expenseDate, expenseAmount;
+        MenuItem addExpenseItem;
 
-        public ExpenseViewHolder(@NonNull ItemExpenseBinding itemExpenseBinding) {
-            super(itemExpenseBinding.getRoot());
-            this.itemExpenseBinding = itemExpenseBinding;
+        public ExpenseViewHolder(@NonNull View itemview) {
+            super(itemview);
+            addExpenseItem = itemview.findViewById(R.id.optionMenuAddExpenseBtn);
+
+            expenseType = itemview.findViewById(R.id.expenseType);
+            expenseDate = itemview.findViewById(R.id.expenseDate);
+            expenseAmount = itemview.findViewById(R.id.expenseAmount);
+
         }
+    }
+
+    //check and import list data by search of expenses
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String searchString = charSequence.toString();
+                if (searchString.isEmpty()){
+                    mListExpenses = mListExpensesOld;
+                }else {
+                    List<Expenses> list = new ArrayList<>();
+                    for (Expenses expe : mListExpensesOld){
+                        if (expe.getmExpenseType().toLowerCase().contains(searchString.toLowerCase())
+                        || expe.getmExDate().toLowerCase().contains(searchString.toLowerCase())
+                        || expe.getmExComment().toLowerCase().contains(searchString.toLowerCase())
+                        || convertResultToString(expe.getmExAmount()).toString().contains(searchString.toLowerCase())){
+                            list.add(expe);
+                        }
+                    }
+                    mListExpenses = list;
+                }
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = mListExpenses;
+                //return new list expenses to show
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                mListExpenses = (List<Expenses>) filterResults.values;
+                notifyDataSetChanged();
+                //show the list returned
+            }
+        };
     }
 }
