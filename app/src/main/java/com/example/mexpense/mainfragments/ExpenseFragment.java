@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -136,7 +135,7 @@ public class ExpenseFragment extends Fragment {
                     amountCal += expense.getmExAmount();
                 }
                 amountOverviewValue.setText(String.valueOf(amountCal));
-                Toast.makeText(mMainActivity, String.valueOf(trip.getmId()), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mMainActivity, String.valueOf(trip.getmId()), Toast.LENGTH_SHORT).show();
             }
         } else {
             expenseAdapter = new ExpenseAdapter(dbManager.getAllExpense(mtripId));
@@ -147,7 +146,7 @@ public class ExpenseFragment extends Fragment {
                 amountCalSecond += expense.getmExAmount();
             }
             amountOverviewValue.setText(String.valueOf(amountCalSecond));
-            Toast.makeText(mMainActivity, String.valueOf(mtripId), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(mMainActivity, String.valueOf(mtripId), Toast.LENGTH_SHORT).show();
         }
 
         searchExpense();

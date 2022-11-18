@@ -58,26 +58,41 @@
                 android:background="@android:color/transparent"
                 />
 
-            <EditText
-                android:id="@+id/expenseAmount_input"
+            <LinearLayout
+                android:id="@+id/addExpenseLayoutAmount"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_below="@+id/expenseType_input"
-                android:hint="@string/trip_amount"
-                android:background="@drawable/rounded"
                 android:layout_marginTop="25dp"
-                android:inputType="number"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:textSize="18sp"
-                android:fontFamily="sans-serif-medium"
-                android:autofillHints="" />
+                android:layout_below="@+id/expenseType_input"
+                android:orientation="horizontal"
+                android:gravity="left"
+                tools:ignore="RtlHardcoded">
+                <EditText
+                    android:id="@+id/expenseAmount_input"
+                    android:layout_width="315dp"
+                    android:layout_height="60dp"
+                    android:hint="@string/trip_amount"
+                    android:background="@drawable/rounded"
+                    android:inputType="number"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:textSize="18sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:autofillHints="" />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/money_icon"
+
+                    tools:ignore="ContentDescription" />
+            </LinearLayout>
 
             <EditText
                 android:id="@+id/expenseDate_input"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_below="@+id/expenseAmount_input"
+                android:layout_below="@+id/addExpenseLayoutAmount"
                 android:hint="@string/date_of_expense"
                 android:layout_marginTop="25dp"
                 android:background="@drawable/rounded"
@@ -125,7 +140,7 @@
                     android:background="@drawable/btn_rounded_full_fill"
                     android:textSize="24sp"
                     android:textAllCaps="false"
-                    tools:ignore="HardcodedText" />
+                    tools:ignore="ButtonStyle,HardcodedText" />
                 <Button
                     android:id="@+id/addExpenseBtn"
                     android:layout_width="230dp"
@@ -137,7 +152,7 @@
                     android:background="@drawable/btn_rounded_full_fill"
                     android:textSize="24sp"
                     android:textAllCaps="false"
-                    tools:ignore="HardcodedText" />
+                    tools:ignore="ButtonStyle,HardcodedText" />
             </LinearLayout>
 
         </RelativeLayout>
