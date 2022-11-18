@@ -75,6 +75,7 @@
                 android:inputType="datetime"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
+                android:focusable="false"
                 android:textSize="18sp"
                 android:fontFamily="sans-serif-medium"
                 android:autofillHints="" />

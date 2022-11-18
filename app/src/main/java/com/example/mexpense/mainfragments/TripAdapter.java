@@ -82,6 +82,8 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
                 db = new DBManager(view.getContext());
                 db.deleteTrip(String.valueOf(delTripId));
                 mListTrips.remove(holder.getAdapterPosition());
+
+                db.deleteExpenseByTripDelClick(delTripId);
                 notifyItemRemoved(holder.getAdapterPosition());
             }
         });

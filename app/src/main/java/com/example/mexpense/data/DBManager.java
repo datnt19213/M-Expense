@@ -79,6 +79,7 @@ public class DBManager extends SQLiteOpenHelper {
         onCreate(sqliteDb);
     }
 
+    //add trip
     public long addTrip(Trips trip) {
         long insertId;
         SQLiteDatabase db = this.getWritableDatabase();
@@ -96,6 +97,7 @@ public class DBManager extends SQLiteOpenHelper {
         return insertId;
     }
 
+    //add expense
     public long addExpense(Expenses expense) {
         long insertId;
         SQLiteDatabase db = this.getWritableDatabase();
@@ -113,6 +115,7 @@ public class DBManager extends SQLiteOpenHelper {
         return insertId;
     }
 
+    //get all trips
     public List<Trips> getAllTrip() {
         final String query = "SELECT * FROM " + TABLE_TRIP_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
@@ -120,32 +123,6 @@ public class DBManager extends SQLiteOpenHelper {
         final Cursor cursor;
         if (db != null) {
             cursor = db.rawQuery(query, null);
-            if (cursor.moveToFirst()) {
-                do {
-                    Trips trip = new Trips();
-                    trip.setmId(cursor.getInt(0));
-                    trip.setmTripName(cursor.getString(1));
-                    trip.setmTripDate(cursor.getString(2));
-                    trip.setmTripDestination(cursor.getString(3));
-                    trip.setmTripRiskAssessment(cursor.getString(4));
-                    trip.setmTripDescription(cursor.getString(5));
-                    // Adding object to list
-                    list.add(trip);
-                } while (cursor.moveToNext());
-            }
-            cursor.close();
-            db.close();
-        }
-        return list;
-    }
-
-    public List<Trips> getTripByExpense(int tripId) {
-        final String query = "SELECT * FROM " + TABLE_TRIP_NAME + " WHERE " + COLUMN_TRIPID + " = ?";
-        SQLiteDatabase db = this.getReadableDatabase();
-        final List<Trips> list = new ArrayList<>();
-        final Cursor cursor;
-        if (db != null) {
-            cursor = db.rawQuery(query, new String[]{String.valueOf(tripId)});
             if (cursor.moveToFirst()) {
                 do {
                     Trips trip = new Trips();
@@ -193,6 +170,35 @@ public class DBManager extends SQLiteOpenHelper {
         return list;
     }
 
+    //get all expense by trip id
+    public List<Expenses> getAllExpensesData() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        final String query = "SELECT * FROM "+ TABLE_EXPENSE_NAME;
+        final List<Expenses> list = new ArrayList<>();
+        final Cursor cursor;
+        if (db != null) {
+            cursor = db.rawQuery(query, null);
+            if (cursor.moveToFirst()) {
+                do {
+                    Expenses expense = new Expenses();
+                    expense.setmExId(cursor.getInt(0));
+                    expense.setmExpenseType(cursor.getString(1));
+                    expense.setmExAmount(Integer.parseInt(cursor.getString(2)));
+                    expense.setmExDate(cursor.getString(3));
+                    expense.setmExComment(cursor.getString(4));
+                    expense.setmExTripId(Integer.parseInt(cursor.getString(5)));
+
+                    // Adding object to list
+                    list.add(expense);
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+            db.close();
+        }
+        return list;
+    }
+
+    //update trip
     public long updateTrip(Trips trip) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -205,28 +211,31 @@ public class DBManager extends SQLiteOpenHelper {
         return db.update(TABLE_TRIP_NAME, values, "tripId=?", new String[]{String.valueOf(trip.getmId())});
     }
 
-    public long updateExpense(Expenses expense) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_EXPENSEID, expense.getmExId());
-        values.put(COLUMN_EXPENSETYPE, expense.getmExpenseType());
-        values.put(COLUMN_AMOUNT, expense.getmExAmount());
-        values.put(COLUM_DATEofEXPENSE, expense.getmExDate());
-        values.put(COLUMN_COMMENT, expense.getmExComment());
+//    public long updateExpense(Expenses expense) {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        ContentValues values = new ContentValues();
+//        values.put(COLUMN_EXPENSEID, expense.getmExId());
+//        values.put(COLUMN_EXPENSETYPE, expense.getmExpenseType());
+//        values.put(COLUMN_AMOUNT, expense.getmExAmount());
+//        values.put(COLUM_DATEofEXPENSE, expense.getmExDate());
+//        values.put(COLUMN_COMMENT, expense.getmExComment());
+//
+//        return db.update(TABLE_EXPENSE_NAME, values, "expenseId=?", new String[]{String.valueOf(expense.getmExId())});
+//    }
 
-        return db.update(TABLE_EXPENSE_NAME, values, "expenseId=?", new String[]{String.valueOf(expense.getmExId())});
-    }
-
+    //delete a trip
     public long deleteTrip(String row_id) {
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete(TABLE_TRIP_NAME, "tripId=?", new String[]{row_id});
     }
 
-    public long deleteExpense(String row_id) {
+    //delete expense when trip is deleted
+    public long deleteExpenseByTripDelClick(int tripId) {
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete(TABLE_EXPENSE_NAME, "expenseId=?", new String[]{row_id});
+        return db.delete(TABLE_EXPENSE_NAME, "tripId=?", new String[]{String.valueOf(tripId)});
     }
 
+    //delete all trips
     public void deleteAllTrip() {
         SQLiteDatabase db = this.getWritableDatabase();
 //        db.execSQL("DELETE FROM " + TABLE_NAME);

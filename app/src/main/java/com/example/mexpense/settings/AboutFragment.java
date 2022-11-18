@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.mexpense.R;
 import com.example.mexpense.mainfragments.SettingsFragment;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class AboutFragment extends Fragment {
     View view;
@@ -19,7 +20,7 @@ public class AboutFragment extends Fragment {
 
     Button checkUpdateBtn, backAboutToSettings;
 
-    AlertDialog.Builder alertDialog;
+    MaterialAlertDialogBuilder alertDialog;
     AlertDialog dialog;
 
     @Override
@@ -59,10 +60,10 @@ public class AboutFragment extends Fragment {
         checkUpdateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                alertDialog = new AlertDialog.Builder(getActivity());
+                alertDialog = new MaterialAlertDialogBuilder(getActivity(), R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog);
                 alertDialog.setMessage("The application is the latest version");
                 alertDialog.setNegativeButton(R.string.OK, (dialogInterface, i) -> dialogInterface.dismiss());
-                dialog = alertDialog.create();
+                alertDialog.create();
                 alertDialog.show();
             }
         });

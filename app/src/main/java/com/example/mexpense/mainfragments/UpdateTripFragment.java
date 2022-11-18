@@ -171,6 +171,7 @@ public class UpdateTripFragment extends Fragment {
 
     public void AlertDialogFailed(){
         alertDialog = new MaterialAlertDialogBuilder(getActivity(), R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog);
+        alertDialog.setTitle(R.string.failed);
         alertDialog.setMessage("Update Failed");
         alertDialog.setNegativeButton(R.string.OK, (dialogInterface, i) -> dialogInterface.dismiss());
         alertDialog.create();
@@ -180,6 +181,7 @@ public class UpdateTripFragment extends Fragment {
 
     public void AlertDialogSuccess(){
         alertDialog = new MaterialAlertDialogBuilder(getActivity(), R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog);
+        alertDialog.setTitle(R.string.success);
         alertDialog.setMessage("Update Successfully");
         alertDialog.setNegativeButton(R.string.OK, (dialogInterface, i) -> dialogInterface.dismiss());
         alertDialog.create();
@@ -189,6 +191,7 @@ public class UpdateTripFragment extends Fragment {
 
     public void AlertDialogEmpty(){
         alertDialog = new MaterialAlertDialogBuilder(getActivity(), R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog);
+        alertDialog.setTitle(R.string.empty_fields);
         alertDialog.setMessage("Fields must not be empty");
         alertDialog.setNegativeButton(R.string.OK, (dialogInterface, i) -> dialogInterface.dismiss());
         alertDialog.create();

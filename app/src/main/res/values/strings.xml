@@ -39,6 +39,15 @@
     <string name="username_txt">123456789</string>
     <string name="SearchExpense">Search Expense</string>
     <string name="total_trip">Total Trips:</string>
+    <string name="export_success">Export Successfully</string>
+    <string name="export_failed">Export Failed</string>
+    <string name="delete_q">Delete</string>
+    <string name="empty_fields">Empty fields</string>
+    <string name="success">Success</string>
+    <string name="failed">Failed</string>
+    <string name="notification">Notification</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
 
 
 </resources>

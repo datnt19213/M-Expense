@@ -20,7 +20,7 @@ import com.example.mexpense.model.Trips;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-public class MainActivity extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, ExpenseFragment.ISendData, AddExpenseFragment.IReloadData {
+public class MainActivity extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener, ExpenseFragment.ISendData, AddExpenseFragment.IReloadData{
 
     FrameLayout frameMainContainer;
     BottomNavigationView bottomNavigationView;

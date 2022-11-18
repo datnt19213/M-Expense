@@ -1,28 +1,26 @@
 package com.example.mexpense.settings;
 
-import android.app.AlertDialog;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.mexpense.R;
 import com.example.mexpense.mainfragments.SettingsFragment;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class FeedbackFragment extends Fragment {
     View view;
 
     Button backToSettings, sendFeedback;
-
     FragmentTransaction transaction;
-
-    AlertDialog.Builder alertDialog;
-    AlertDialog dialog;
+    MaterialAlertDialogBuilder alertDialog;
+    EditText emailFeedback, descriptionFeedback;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,17 +55,24 @@ public class FeedbackFragment extends Fragment {
 
     public  void sendFeedback() {
         sendFeedback = view.findViewById(R.id.sendFeedback);
+        emailFeedback = view.findViewById(R.id.emailFeedback);
+        descriptionFeedback = view.findViewById(R.id.feedbackInput);
         sendFeedback.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                AlertDialogSuccess();
+                if (emailFeedback.getText().toString().isEmpty() || descriptionFeedback.getText().toString().isEmpty()){
+                    AlertDialogEmpty();
+                }
+                else {
+                    AlertDialogSuccess();
+                }
             }
         });
     }
 
     public void AlertDialogSuccess(){
-        alertDialog = new AlertDialog.Builder(getActivity());
-        alertDialog.setMessage("Successfully sent");
+        alertDialog = new MaterialAlertDialogBuilder(getActivity(), R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog);
+        alertDialog.setMessage("Successfully Sent");
         alertDialog.setNegativeButton(R.string.OK, (dialogInterface, i) -> {
 
                 assert getFragmentManager() != null;
@@ -82,7 +87,17 @@ public class FeedbackFragment extends Fragment {
                 transaction.commit();
             dialogInterface.dismiss();
         });
-        dialog = alertDialog.create();
+        alertDialog.create();
+        alertDialog.show();
+    }
+
+    public void AlertDialogEmpty(){
+        alertDialog = new MaterialAlertDialogBuilder(getActivity(), R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog);
+        alertDialog.setMessage("Fields is empty");
+        alertDialog.setNegativeButton(R.string.OK, (dialogInterface, i) -> {
+            dialogInterface.dismiss();
+        });
+        alertDialog.create();
         alertDialog.show();
     }
 }

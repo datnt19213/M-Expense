@@ -1,5 +1,7 @@
 package com.example.mexpense.mainfragments;
 
+import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.transition.TransitionInflater;
@@ -8,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -23,6 +26,7 @@ import com.example.mexpense.model.Expenses;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -36,12 +40,13 @@ public class AddExpenseFragment extends Fragment {
     ExpenseTypesAdapter expenseTypesAdapter;
     ExpenseFragment expenseFragment;
     TripFragment tripFragment;
-
     FragmentTransaction transaction;
     MaterialAlertDialogBuilder alertDialog;
+    Calendar calendar;
+    DatePickerDialog datePickerDialog;
 
     public String selectedExpenseTypeItem;
-    int tripId;
+    int tripId, day, month, year;
 
     private IReloadData mIReloadData;
 
@@ -90,11 +95,33 @@ public class AddExpenseFragment extends Fragment {
         expenseDateInput = view.findViewById(R.id.expenseDate_input);
         expenseDescriptionInput = view.findViewById(R.id.expenseDescription_input);
         addExpenseBtn = view.findViewById(R.id.addExpenseBtn);
-
+        setVsGetCalendar();
         addNewExpenseClick();
         backToExpenseClick();
 
         return view;
+    }
+
+    public void setVsGetCalendar(){
+        calendar = Calendar.getInstance();
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+        month = calendar.get(Calendar.MONTH);
+        year = calendar.get(Calendar.YEAR);
+
+        expenseDateInput = view.findViewById(R.id.expenseDate_input);
+        expenseDateInput.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                    @SuppressLint("SetTextI18n")
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+                        expenseDateInput.setText(month + "/" + dayOfMonth + "/" + year);
+                    }
+                }, year, month, day);
+                datePickerDialog.show();
+            }
+        });
     }
 
     //list add type of expense
@@ -174,6 +201,7 @@ public class AddExpenseFragment extends Fragment {
 
     public void AlertDialogFailed(){
         alertDialog = new MaterialAlertDialogBuilder(getActivity(), R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog);
+        alertDialog.setTitle(R.string.failed);
         alertDialog.setMessage("Add Failed");
         alertDialog.setNegativeButton(R.string.OK, (dialogInterface, i) -> dialogInterface.dismiss());
         alertDialog.create();
@@ -183,6 +211,7 @@ public class AddExpenseFragment extends Fragment {
 
     public void AlertDialogSuccess(){
         alertDialog = new MaterialAlertDialogBuilder(getActivity(), R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog);
+        alertDialog.setTitle(R.string.success);
         alertDialog.setMessage("Add Successfully");
         alertDialog.setNegativeButton(R.string.OK, (dialogInterface, i) -> {
             dialogInterface.dismiss();
@@ -196,6 +225,7 @@ public class AddExpenseFragment extends Fragment {
 
     public void AlertDialogEmpty(){
         alertDialog = new MaterialAlertDialogBuilder(getActivity(), R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog);
+        alertDialog.setTitle(R.string.empty_fields);
         alertDialog.setMessage("Fields must not be empty");
         alertDialog.setNegativeButton(R.string.OK, (dialogInterface, i) -> dialogInterface.dismiss());
         alertDialog.create();

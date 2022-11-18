@@ -160,6 +160,7 @@ public class TripFragment extends Fragment {
     //delete all trip click listener
     public void deleteAllTripClick(){
         alertDialog = new MaterialAlertDialogBuilder(getActivity(), R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog);
+        alertDialog.setTitle(R.string.delete_q);
         alertDialog.setMessage("Are you sure you want to delete all trips?");
         alertDialog.setPositiveButton(R.string.delete_trip, new DialogInterface.OnClickListener() {
             @Override

@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,7 +24,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mexpense.MainActivity;
 import com.example.mexpense.R;
 import com.example.mexpense.data.DBManager;
+import com.example.mexpense.model.Expenses;
 import com.example.mexpense.model.Trips;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 public class ExpenseFragment extends Fragment {
 
@@ -34,9 +43,11 @@ public class ExpenseFragment extends Fragment {
     MainActivity mMainActivity;
     TripFragment tripFragment;
     SearchView searchExpense;
+    TextView amountOverviewValue;
 
     LinearLayoutManager linearLayoutManager;
     RecyclerView recycleViewExpense;
+    MaterialAlertDialogBuilder alertDialog;
 
     int id, tripId, mtripId;
 
@@ -78,7 +89,11 @@ public class ExpenseFragment extends Fragment {
             }
         }
         if (id == R.id.optionMenuExportExpenseBtn){
-//            function();
+            if (tripId != 0) {
+                exportData(tripId);
+            }else {
+                exportData(mtripId);
+            }
         }
         return super.onOptionsItemSelected(item);
     }
@@ -96,8 +111,7 @@ public class ExpenseFragment extends Fragment {
         recycleViewExpense.setLayoutManager(linearLayoutManager);
 
         DBManager dbManager = new DBManager(getActivity());
-
-
+        amountOverviewValue = view.findViewById(R.id.amountOverviewValue);
 
         //Back to trip button click
         expenseBackToTrip = view.findViewById(R.id.expenseBackToTrip);
@@ -116,10 +130,23 @@ public class ExpenseFragment extends Fragment {
             if (trip != null) {
                 tripId = trip.getmId();
                 expenseAdapter = new ExpenseAdapter(dbManager.getAllExpense(tripId));
+                List<Expenses> amountExpenseList = dbManager.getAllExpense(tripId);
+                int amountCal = 0;
+                for (Expenses expense : amountExpenseList) {
+                    amountCal += expense.getmExAmount();
+                }
+                amountOverviewValue.setText(String.valueOf(amountCal));
                 Toast.makeText(mMainActivity, String.valueOf(trip.getmId()), Toast.LENGTH_SHORT).show();
             }
         } else {
             expenseAdapter = new ExpenseAdapter(dbManager.getAllExpense(mtripId));
+
+            List<Expenses> amountExpenseList = dbManager.getAllExpense(mtripId);
+            int amountCalSecond = 0;
+            for (Expenses expense : amountExpenseList) {
+                amountCalSecond += expense.getmExAmount();
+            }
+            amountOverviewValue.setText(String.valueOf(amountCalSecond));
             Toast.makeText(mMainActivity, String.valueOf(mtripId), Toast.LENGTH_SHORT).show();
         }
 
@@ -147,6 +174,53 @@ public class ExpenseFragment extends Fragment {
         });
     }
 
+    //export expenses file data
+    private void exportData(int idTrip) {
+        DBManager dbManager = new DBManager(getActivity());
+        List<Expenses> listExpenses = dbManager.getAllExpense(idTrip);
+
+        try {
+            String fileName = view.getContext().getFilesDir()+"/ExpensesJson.txt";
+            File file = new File(fileName);
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            String expenseContent = "";
+            String data = "";
+            int i = 1;
+            for(Expenses exp : listExpenses){
+                if (i == listExpenses.size()){
+                    expenseContent +=
+                    " {\n" +
+                        "  \"mExId\":\"" + exp.getmExId() + "\",\n" +
+                        "  \"mExpenseType\":\"" + exp.getmExpenseType() + "\",\n" +
+                        "  \"mExAmount\":\"" + exp.getmExAmount() + "\",\n" +
+                        "  \"mExDate\":\"" + exp.getmExDate() + "\",\n" +
+                        "  \"mExComment\":\"" + exp.getmExComment() + "\",\n" +
+                        "  \"mExTripId\":\"" + exp.getmExTripId() + "\"\n" +
+                    " }\n";
+                }else {
+                    expenseContent +=
+                    " {\n" +
+                        "  \"mExId\":\"" + exp.getmExId() + "\",\n" +
+                        "  \"mExpenseType\":\"" + exp.getmExpenseType() + "\",\n" +
+                        "  \"mExAmount\":\"" + exp.getmExAmount() + "\",\n" +
+                        "  \"mExDate\":\"" + exp.getmExDate() + "\",\n" +
+                        "  \"mExComment\":\"" + exp.getmExComment() + "\",\n" +
+                        "  \"mExTripId\":\"" + exp.getmExTripId() + "\"\n" +
+                    " },\n";
+                }
+                i+=1;
+                data = "[\n" + expenseContent + "]";
+            }
+            fileOutputStream.write(data.getBytes(StandardCharsets.UTF_8));
+            fileOutputStream.close();
+            dialogShowCompleted(fileName);
+
+        }catch (IOException ex){
+            dialogShowFail(ex);
+        }
+
+    }
+
     //lifecycle methods of this expense
     @Override
     public void onAttach(@NonNull Context context) {
@@ -167,6 +241,24 @@ public class ExpenseFragment extends Fragment {
         );
         transaction.replace(R.id.frameMainContainer, tripFragment);
         transaction.commit();
+    }
+
+    public void dialogShowCompleted(String fileName){
+        alertDialog = new MaterialAlertDialogBuilder(getActivity(), R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog);
+        alertDialog.setTitle(R.string.export_success);
+        alertDialog.setMessage("Path: " + fileName);
+        alertDialog.setNegativeButton(R.string.OK, (dialogInterface, i) -> dialogInterface.dismiss());
+        alertDialog.create();
+        alertDialog.show();
+    }
+
+    public void dialogShowFail(IOException ex){
+        alertDialog = new MaterialAlertDialogBuilder(getActivity(), R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog);
+        alertDialog.setTitle(R.string.export_failed);
+        alertDialog.setMessage("Error: "+ex.getMessage());
+        alertDialog.setNegativeButton(R.string.OK, (dialogInterface, i) -> dialogInterface.dismiss());
+        alertDialog.create();
+        alertDialog.show();
     }
 
     public void receiveExpenseTripId(int tripId) {
