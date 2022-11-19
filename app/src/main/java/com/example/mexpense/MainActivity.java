@@ -132,4 +132,17 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
         transaction.replace(R.id.frameMainContainer, addExpenseFragment);
         transaction.commit();
     }
+
+
+//    @Override
+//    public void onExistTrip() {
+//        TripFragment tripFragment = new TripFragment();
+//        tripFragment.setHideEmpty();
+//    }
+//
+//    @Override
+//    public void onNoneExistTrip() {
+//        TripFragment tripFragment = new TripFragment();
+//        tripFragment.setShowEmpty();
+//    }
 }

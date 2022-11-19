@@ -91,6 +91,7 @@ public class TripFragment extends Fragment {
         recyclerViewTrip = view.findViewById(R.id.recycleViewTrip);
         linearLayoutManager = new LinearLayoutManager(mMainActivity);
         recyclerViewTrip.setLayoutManager(linearLayoutManager);
+//        setHideEmpty();
 
         updateTripFormVsExpenseTransaction();
         searchTrip();
@@ -187,4 +188,15 @@ public class TripFragment extends Fragment {
 
     }
 
+//    //show empty data icon
+//    public void setShowEmpty(){
+//        ImageView layout = view.findViewById(R.id.empty);
+//            layout.setVisibility(View.VISIBLE);
+//    }
+//
+//    //hide empty data icon
+//    public void setHideEmpty(){
+//        ImageView layout = view.findViewById(R.id.empty);
+//        layout.setVisibility(View.GONE);
+//    }
 }

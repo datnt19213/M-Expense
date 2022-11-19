@@ -122,6 +122,30 @@
         android:layout_below="@+id/expenseOverviewCard"
         tools:listitem="@layout/item_expense"
         />
+
+    <LinearLayout
+        android:id="@+id/empty_expense"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        >
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/empty_icon"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Empty data"
+            android:fontFamily="sans-serif-medium"
+            android:textSize="30sp"
+            android:gravity="center"
+            android:textColor="@color/orange"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
+
     <Button
         android:id="@+id/expenseBackToTrip"
         android:layout_width="match_parent"

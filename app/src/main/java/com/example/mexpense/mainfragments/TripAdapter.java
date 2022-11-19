@@ -1,5 +1,6 @@
 package com.example.mexpense.mainfragments;
 
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,11 +11,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mexpense.R;
 import com.example.mexpense.data.DBManager;
 import com.example.mexpense.model.Trips;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +27,17 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
     private List<Trips> mListTrips; //new list to show search data result
     private final List<Trips> mListTripsOld; //current list
     private final ITripClickItem mITripClickItem;
+//    private IExistTrip mIExist;
     private int delTripId;
 
+    MaterialAlertDialogBuilder alertDialog;
+    FragmentTransaction transaction;
     DBManager db;
+
+//    public interface IExistTrip{
+//        void onExistTrip();
+//        void onNoneExistTrip();
+//    }
 
     //transfer trip data to expense using interface
     public interface ITripClickItem{
@@ -51,8 +62,10 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
     public void onBindViewHolder(@NonNull TripViewHolder holder, int position) {
         Trips trip = mListTrips.get(position);
         if (trip == null) {
+//            mIExist.onNoneExistTrip();
             return;
         }
+//        mIExist.onExistTrip();
 
         holder.tripName.setText(trip.getmTripName());
         holder.tripDate.setText(trip.getmTripDate());
@@ -78,13 +91,31 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
         holder.deleteTrip.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                delTripId = trip.getmId();
-                db = new DBManager(view.getContext());
-                db.deleteTrip(String.valueOf(delTripId));
-                mListTrips.remove(holder.getAdapterPosition());
+                alertDialog = new MaterialAlertDialogBuilder(view.getContext(), R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog);
+                alertDialog.setTitle(R.string.delete_q);
+                alertDialog.setMessage("Are you sure you want to delete this trip?");
+                alertDialog.setPositiveButton(R.string.delete_trip, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                delTripId = trip.getmId();
+                                db = new DBManager(view.getContext());
+                                db.deleteTrip(String.valueOf(delTripId));
+                                mListTrips.remove(holder.getAdapterPosition());
 
-                db.deleteExpenseByTripDelClick(delTripId);
-                notifyItemRemoved(holder.getAdapterPosition());
+                                db.deleteExpenseByTripDelClick(delTripId);
+                                notifyItemRemoved(holder.getAdapterPosition());
+
+                                alertDialog = new MaterialAlertDialogBuilder(view.getContext(), R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog);
+                                alertDialog.setMessage("Delete successfully");
+                                alertDialog.setNegativeButton(R.string.OK, (dialogInterfaces, itface) -> dialogInterfaces.dismiss());
+                                alertDialog.create();
+                                alertDialog.show();
+                            }
+                        })
+                        .setNegativeButton(R.string.cancel_delete_trip, (dialogInterface, i) -> dialogInterface.dismiss());
+                alertDialog.create();
+                alertDialog.show();
+                //Dialog alert delete all trip
             }
         });
     }
