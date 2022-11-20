@@ -39,6 +39,7 @@ public class UpdateTripFragment extends Fragment {
     DatePickerDialog datePickerDialog;
 
     int selected, day, month, year;
+    String nameSelected;
 
     public static final String TAG = UpdateTripFragment.class.getName(); //save status of trip fragment
 
@@ -72,10 +73,12 @@ public class UpdateTripFragment extends Fragment {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (radioButtonNoneRisk.isChecked()) {
                     selected = 0;
+                    nameSelected = "None Risk";
                     //set none risk status into database to trip
                 }
                 else {
                     selected = 1;
+                    nameSelected = "Risk";
                     //set risk into status database to trip
                 }
             }
@@ -95,10 +98,10 @@ public class UpdateTripFragment extends Fragment {
                 tripDestiInput.setText(trip.getmTripDestination());
                 tripDateInput.setText(trip.getmTripDate());
                 if(trip.getmTripRiskAssessment() != null){
-                    if (trip.getmTripRiskAssessment().equals("0")){
+                    if (trip.getmTripRiskAssessment().equals("None Risk")){
                         radioButtonNoneRisk.setChecked(true);
                     }
-                    if (trip.getmTripRiskAssessment().equals("1")){
+                    if (trip.getmTripRiskAssessment().equals("Risk")){
                         radioButtonRisk.setChecked(true);
                     }
                 }
