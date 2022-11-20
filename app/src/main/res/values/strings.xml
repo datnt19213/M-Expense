@@ -48,6 +48,8 @@
     <string name="notification">Notification</string>
     <string name="cancel">Cancel</string>
     <string name="ok">OK</string>
+    <string name="close">Close</string>
+    <string name="view_details">View details</string>
 
 
 </resources>

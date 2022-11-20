@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mexpense.R;
 import com.example.mexpense.model.Expenses;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +23,8 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ExpenseV
 
     private List<Expenses> mListExpenses; //new list to show search data result
     private final List<Expenses> mListExpensesOld; //current list
+
+    MaterialAlertDialogBuilder alertDialog;
 
     public ExpenseAdapter(List<Expenses> mListExpenses) {
         this.mListExpenses = mListExpenses;
@@ -44,6 +48,22 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ExpenseV
         holder.expenseType.setText(expenses.getmExpenseType());
         holder.expenseDate.setText(expenses.getmExDate());
         holder.expenseAmount.setText(String.valueOf(expenses.getmExAmount()));
+
+        holder.expenseItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String detailExpense = "Expense Type: " + expenses.getmExpenseType() + "\n" +
+                        "Expense Amount: " + expenses.getmExAmount() + "$" + "\n" +
+                        "Expense Date: " + expenses.getmExDate() + "\n" +
+                        "Expense Description: " + expenses.getmExComment() + "\n";
+                alertDialog = new MaterialAlertDialogBuilder(view.getContext(), R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog);
+                alertDialog.setTitle(R.string.view_details);
+                alertDialog.setMessage(detailExpense);
+                alertDialog.setNegativeButton(R.string.close, (dialogInterface, i) -> dialogInterface.dismiss());
+                alertDialog.create();
+                alertDialog.show();
+            }
+        });
     }
 
     @Override
@@ -57,10 +77,12 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ExpenseV
     public static class ExpenseViewHolder extends RecyclerView.ViewHolder {
         TextView expenseType, expenseDate, expenseAmount;
         MenuItem addExpenseItem;
+        RelativeLayout expenseItem;
 
         public ExpenseViewHolder(@NonNull View itemview) {
             super(itemview);
             addExpenseItem = itemview.findViewById(R.id.optionMenuAddExpenseBtn);
+            expenseItem = itemview.findViewById(R.id.expenseItem);
 
             expenseType = itemview.findViewById(R.id.expenseType);
             expenseDate = itemview.findViewById(R.id.expenseDate);

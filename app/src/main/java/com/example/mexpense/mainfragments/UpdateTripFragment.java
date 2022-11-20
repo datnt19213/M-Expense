@@ -1,6 +1,7 @@
 package com.example.mexpense.mainfragments;
 
-import android.app.AlertDialog;
+import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.transition.TransitionInflater;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -21,6 +23,8 @@ import com.example.mexpense.data.DBManager;
 import com.example.mexpense.model.Trips;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
+import java.util.Calendar;
+
 public class UpdateTripFragment extends Fragment {
 
     View view;
@@ -31,9 +35,10 @@ public class UpdateTripFragment extends Fragment {
 
     FragmentTransaction transaction;
     MaterialAlertDialogBuilder alertDialog;
-    AlertDialog dialog;
+    Calendar calendar;
+    DatePickerDialog datePickerDialog;
 
-    int selected;
+    int selected, day, month, year;
 
     public static final String TAG = UpdateTripFragment.class.getName(); //save status of trip fragment
 
@@ -75,6 +80,8 @@ public class UpdateTripFragment extends Fragment {
                 }
             }
         });
+
+        setVsGetCalendar();
 
         updateTripBtn = view.findViewById(R.id.updateTripBtn);
         updateTripBackBtn = view.findViewById(R.id.updateTripBackBtn);
@@ -120,6 +127,28 @@ public class UpdateTripFragment extends Fragment {
 
 
         return view;
+    }
+
+    public void setVsGetCalendar(){
+        calendar = Calendar.getInstance();
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+        month = calendar.get(Calendar.MONTH);
+        year = calendar.get(Calendar.YEAR);
+
+        tripDateInput = view.findViewById(R.id.updateTripDate_input);
+        tripDateInput.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                    @SuppressLint("SetTextI18n")
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+                        tripDateInput.setText(month + "/" + dayOfMonth + "/" + year);
+                    }
+                }, year, month, day);
+                datePickerDialog.show();
+            }
+        });
     }
 
     //update trip

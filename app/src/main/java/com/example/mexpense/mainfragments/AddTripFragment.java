@@ -65,6 +65,18 @@ public class AddTripFragment extends Fragment {
         radioButtonRisk = mAddTrip.findViewById(R.id.radioButtonRisk);
         radioButtonNoneRisk = mAddTrip.findViewById(R.id.radioButtonNoneRisk);
         radioGroup = mAddTrip.findViewById(R.id.radioGroupRiskCheck);
+
+        radioButtonNoneRisk.setChecked(true);
+
+        if (radioButtonNoneRisk.isChecked()){
+            selected = 0;
+            nameSelected = "None Risk";
+        }
+        if (radioButtonRisk.isChecked()){
+            selected = 1;
+            nameSelected = "Risk";
+        }
+
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -72,7 +84,7 @@ public class AddTripFragment extends Fragment {
                     selected = 0;
                     nameSelected = "None Risk";
                 }
-                else {
+                else if (radioButtonRisk.isChecked()) {
                     selected = 1;
                     nameSelected = "Risk";
                 }
@@ -93,6 +105,7 @@ public class AddTripFragment extends Fragment {
         return mAddTrip;
     }
 
+    // get and set date into date time trip field
     public void setVsGetCalendar(){
         calendar = Calendar.getInstance();
         day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -107,7 +120,7 @@ public class AddTripFragment extends Fragment {
                     @SuppressLint("SetTextI18n")
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
-                        tripDate_input.setText(month + "/" + dayOfMonth + "/" + year);
+                        tripDate_input.setText((month+1) + "/" + dayOfMonth + "/" + year);
                     }
                 }, year, month, day);
                 datePickerDialog.show();
@@ -161,7 +174,7 @@ public class AddTripFragment extends Fragment {
             trip.setmTripName(tripName_input.getText().toString());
             trip.setmTripDestination(tripDestination_input.getText().toString());
             trip.setmTripDate(tripDate_input.getText().toString());
-            trip.setmTripRiskAssessment(String.valueOf(selected));
+            trip.setmTripRiskAssessment(nameSelected);
             trip.setmTripDescription(tripDescription_input.getText().toString());
             long result = myDB.addTrip(trip);
 
@@ -198,6 +211,17 @@ public class AddTripFragment extends Fragment {
         alertDialog.show();
         //Dialog alert empty fields data
     }
+
+    public void AlertDialogRadioEmpty(){
+        alertDialog = new MaterialAlertDialogBuilder(getActivity(), R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog);
+        alertDialog.setTitle(R.string.empty_fields);
+        alertDialog.setMessage("Risk check must not be empty");
+        alertDialog.setNegativeButton(R.string.OK, (dialogInterface, i) -> dialogInterface.dismiss());
+        alertDialog.create();
+        alertDialog.show();
+        //Dialog alert empty fields data
+    }
+
 
     public void tripTransaction(){
         assert getFragmentManager() != null;

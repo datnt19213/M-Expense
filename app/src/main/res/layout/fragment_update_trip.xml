@@ -76,6 +76,7 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:textSize="18sp"
+                android:focusable="false"
                 android:fontFamily="sans-serif-medium"
                 android:autofillHints="" />
             <RadioGroup

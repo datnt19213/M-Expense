@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -118,6 +119,60 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
                 //Dialog alert delete all trip
             }
         });
+
+        //View detail trip
+        holder.viewTrip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String detailTrip = "Trip name: " + trip.getmTripName() + "\n" +
+                        "Trip Destination: " + trip.getmTripDestination() + "\n" +
+                        "Trip Date: " + trip.getmTripDate() + "\n" +
+                        "Trip Risk: " + trip.getmTripRiskAssessment() + "\n" +
+                        "Trip Description: " + trip.getmTripDescription() + "\n";
+                alertDialog = new MaterialAlertDialogBuilder(view.getContext(), R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog);
+                alertDialog.setTitle(R.string.view_details);
+                alertDialog.setMessage(detailTrip);
+                alertDialog.setNegativeButton(R.string.close, (dialogInterface, i) -> dialogInterface.dismiss());
+                alertDialog.create();
+                alertDialog.show();
+            }
+        });
+
+        //View detail trip
+        holder.viewTripBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String detailTrip = "Trip name: " + trip.getmTripName() + "\n" +
+                        "Trip Destination: " + trip.getmTripDestination() + "\n" +
+                        "Trip Date: " + trip.getmTripDate() + "\n" +
+                        "Trip Risk: " + trip.getmTripRiskAssessment() + "\n" +
+                        "Trip Description: " + trip.getmTripDescription() + "\n";
+                alertDialog = new MaterialAlertDialogBuilder(view.getContext(), R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog);
+                alertDialog.setTitle(R.string.view_details);
+                alertDialog.setMessage(detailTrip);
+                alertDialog.setNegativeButton(R.string.close, (dialogInterface, i) -> dialogInterface.dismiss());
+                alertDialog.create();
+                alertDialog.show();
+            }
+        });
+
+        //View detail trip
+        holder.viewTripBtnTxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String detailTrip = "Trip name: " + trip.getmTripName() + "\n" +
+                        "Trip Destination: " + trip.getmTripDestination() + "\n" +
+                        "Trip Date: " + trip.getmTripDate() + "\n" +
+                        "Trip Risk: " + trip.getmTripRiskAssessment() + "\n" +
+                        "Trip Description: " + trip.getmTripDescription() + "\n";
+                alertDialog = new MaterialAlertDialogBuilder(view.getContext(), R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog);
+                alertDialog.setTitle(R.string.view_details);
+                alertDialog.setMessage(detailTrip);
+                alertDialog.setNegativeButton(R.string.close, (dialogInterface, i) -> dialogInterface.dismiss());
+                alertDialog.create();
+                alertDialog.show();
+            }
+        });
     }
 
     @Override
@@ -131,15 +186,19 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
     //view holder of Trip
     public static class TripViewHolder extends RecyclerView.ViewHolder{
 
-        TextView tripName, tripDate, tripDestination;
+        TextView tripName, tripDate, tripDestination, viewTripBtnTxt;
         RelativeLayout tripItem;
-        Button deleteTrip, updateTrip;
+        LinearLayout viewTrip;
+        Button deleteTrip, updateTrip, viewTripBtn;
 
         public TripViewHolder(@NonNull View itemview) {
             super(itemview);
             tripItem = itemview.findViewById(R.id.tripInfo);
             deleteTrip = itemview.findViewById(R.id.deleteTripBtn);
             updateTrip = itemview.findViewById(R.id.editTripBtn);
+            viewTrip = itemview.findViewById(R.id.view_detail_trip);
+            viewTripBtn = itemview.findViewById(R.id.view_detail_trip_btn);
+            viewTripBtnTxt = itemview.findViewById(R.id.view_detail_trip_txt_btn);
 
             tripName = itemview.findViewById(R.id.tripName);
             tripDate = itemview.findViewById(R.id.tripDate);

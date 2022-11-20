@@ -116,7 +116,7 @@ public class AddExpenseFragment extends Fragment {
                     @SuppressLint("SetTextI18n")
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
-                        expenseDateInput.setText(month + "/" + dayOfMonth + "/" + year);
+                        expenseDateInput.setText((month+1) + "/" + dayOfMonth + "/" + year);
                     }
                 }, year, month, day);
                 datePickerDialog.show();
