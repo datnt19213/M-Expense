@@ -176,10 +176,10 @@ public class UpdateTripFragment extends Fragment {
                             trip.setmTripName(tripNameInput.getText().toString());
                             trip.setmTripDestination(tripDestiInput.getText().toString());
                             trip.setmTripDate(tripDateInput.getText().toString());
-                            if (selected == 0) {
-                                trip.setmTripRiskAssessment(String.valueOf(selected));
+                            if (nameSelected.equals("None Risk")) {
+                                trip.setmTripRiskAssessment(nameSelected);
                             } else {
-                                trip.setmTripRiskAssessment(String.valueOf(selected));
+                                trip.setmTripRiskAssessment(nameSelected);
                             }
                             trip.setmTripDescription(tripDestiInput.getText().toString());
 
