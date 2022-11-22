@@ -181,7 +181,7 @@ public class UpdateTripFragment extends Fragment {
                             } else {
                                 trip.setmTripRiskAssessment(nameSelected);
                             }
-                            trip.setmTripDescription(tripDestiInput.getText().toString());
+                            trip.setmTripDescription(tripDescInput.getText().toString());
 
                             long result = dbManager.updateTrip(trip);
 
